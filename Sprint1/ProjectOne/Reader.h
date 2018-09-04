@@ -8,10 +8,10 @@ class Reader{
 private:
     //std::vector<user> users;
     std::string name;
-    std::string delim;
+    //std::string delim;
 public:
     Reader(std::string);
     //vector<string>getData();
-    //void printData();
+    void printData();
 };
 #endif // READER_H
