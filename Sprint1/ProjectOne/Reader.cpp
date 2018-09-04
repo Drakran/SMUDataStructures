@@ -7,11 +7,13 @@ using namespace std;
 Reader::Reader(string fileName)
 {
     name = fileName;
+    cout << name;
 }
 
-void Reader::printData()
+void Reader::getData()
 {
-    ifstream file("5-users-tweets.csv");
+    ifstream file;
+    file.open(name);
     //Exits if no file
     if(!file)
     {

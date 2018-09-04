@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
     Reader scanner(argv[1]);
     //cout << argv[1] << endl;
-    scanner.printData();
+    scanner.getData();
 
     return 0;
 }

@@ -12,6 +12,6 @@ private:
 public:
     Reader(std::string);
     //vector<string>getData();
-    void printData();
+    void getData();
 };
 #endif // READER_H
