@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 //    }
     for(auto x = madUsers.begin(); x != madUsers.end(); x++)
     {
-        cout<< x->first << " " << x->second << endl;
+        cout<< x->first << " " << x->second << endl;//
     }
 
     return 0;
