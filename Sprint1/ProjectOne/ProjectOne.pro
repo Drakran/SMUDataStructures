@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-    Reader.cpp
+    Reader.cpp \
+    user.cpp
 
 HEADERS += \
-    Reader.h
+    Reader.h \
+    user.h

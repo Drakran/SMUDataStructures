@@ -2,16 +2,15 @@
 #define READER_H
 
 #include<string>
-
+#include "user.h"
+#include <vector>
 
 class Reader{
 private:
-    //std::vector<user> users;
     std::string name;
     //std::string delim;
 public:
     Reader(std::string);
-    //vector<string>getData();
-    void getData();
+    void getData(vector<User*> &);
 };
 #endif // READER_H
