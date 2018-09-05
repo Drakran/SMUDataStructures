@@ -9,7 +9,8 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     vector<User*> users;
-    Reader scanner(argv[1]);
+    multimap<string,string> madUsers;
+    Reader scanner(argv[1],argv[2]);
     //cout << argv[1] << endl;
     scanner.getData(users);
     //cout << users[1]->getName();
@@ -22,11 +23,6 @@ int main(int argc, char *argv[])
             cout << temp.first << " " << temp.second << endl;
         }
     }
-
-//            for(auto temp : users[1] -> getTweet())
-//            {
-//                cout << temp.first << " " << temp.second << endl;
-//            }
 
     return 0;
 }

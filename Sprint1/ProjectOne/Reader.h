@@ -4,13 +4,15 @@
 #include<string>
 #include "user.h"
 #include <vector>
+#include <algorithm>
 
 class Reader{
 private:
-    std::string name;
-    //std::string delim;
+    std::string name;//First File Name(tweets)
+    std::string libName;//2nd File(
 public:
-    Reader(std::string);
+    Reader(std::string, std::string);
     void getData(vector<User*> &);
+    void getLibs(multimap<string,string> &);
 };
 #endif // READER_H

@@ -2,13 +2,14 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <algorithm>
+
 
 using namespace std;
 
-Reader::Reader(string fileName)
+Reader::Reader(string fileName,string madLibName)
 {
     name = fileName;
+    libName = madLibName;
 }
 
 /* getData gets the data from a csv twitter file and stores
@@ -56,8 +57,35 @@ void Reader::getData(vector<User*> & users)
         getline(file,id,','); //To test file.good()
     }
 
+    file.close();
+}
+
+void Reader::getLibs(multimap<string,string> &madUsers)
+{
+    ifstream file;
+    file.open(libName);
+
+    if(!file)
+    {
+        cout << "Error, can't open file" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    string name, partSpeech ,garbage;
+    getline(file,name,' ');
+    while(file.good())
+    {
 
 
+        getline(file,garbage, '[');
+        getline(file,partSpeech, ']');
+        getline(file,garbage, '\n');
+
+        madUsers.insert(pair<string,string>(name,partSpeech));
+
+        getline(file,name,' ');
+    }
+    file.close();
 }
 
 
