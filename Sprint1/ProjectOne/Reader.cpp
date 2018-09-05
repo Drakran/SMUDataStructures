@@ -64,7 +64,6 @@ void Reader::getLibs(multimap<string,string> &madUsers)
 {
     ifstream file;
     file.open(libName);
-
     if(!file)
     {
         cout << "Error, can't open file" << endl;

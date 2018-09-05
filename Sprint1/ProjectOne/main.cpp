@@ -13,15 +13,20 @@ int main(int argc, char *argv[])
     Reader scanner(argv[1],argv[2]);
     //cout << argv[1] << endl;
     scanner.getData(users);
+    scanner.getLibs(madUsers);
     //cout << users[1]->getName();
-    for(int x = 0; x < 25; x++)
-    if((users[x]->getName()) == "aristocracy")
+//    for(int x = 0; x < 25; x++)
+//    if((users[x]->getName()) == "aristocracy")
+//    {
+//        cout << users[x]->getName();
+//        for(auto temp : users[x] -> getTweet())
+//        {
+//            cout << temp.first << " " << temp.second << endl;
+//        }
+//    }
+    for(auto x = madUsers.begin(); x != madUsers.end(); x++)
     {
-        cout << users[x]->getName();
-        for(auto temp : users[x] -> getTweet())
-        {
-            cout << temp.first << " " << temp.second << endl;
-        }
+        cout<< x->first << " " << x->second << endl;
     }
 
     return 0;
