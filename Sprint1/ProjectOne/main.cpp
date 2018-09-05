@@ -15,19 +15,19 @@ int main(int argc, char *argv[])
     scanner.getData(users);
     scanner.getLibs(madUsers);
     //cout << users[1]->getName();
-//    for(int x = 0; x < 25; x++)
-//    if((users[x]->getName()) == "aristocracy")
-//    {
-//        cout << users[x]->getName();
-//        for(auto temp : users[x] -> getTweet())
-//        {
-//            cout << temp.first << " " << temp.second << endl;
-//        }
-//    }
-    for(auto x = madUsers.begin(); x != madUsers.end(); x++)
+    for(int x = 0; x < 25; x++)
+    if((users[x]->getName()) == "aristocracy")
     {
-        cout<< x->first << " " << x->second << endl;//
+        cout << users[x]->getName();
+        for(auto temp : users[x] -> getTweet())
+        {
+            cout << temp.first << " " << temp.second << endl;
+        }
     }
+//    for(auto x = madUsers.begin(); x != madUsers.end(); x++)
+//    {
+//        cout<< x->first << " " << x->second << endl;//
+//    }
 
     return 0;
 }
