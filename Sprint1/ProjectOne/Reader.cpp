@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <regex> //I barely know what that is but It helped a lot
 
 
 using namespace std;
@@ -46,6 +47,7 @@ void Reader::getData(vector<User> & users)
             getline(tweet,word,',');
             word.erase(remove(word.begin(),word.end(), '\''), word.end());
             getline(tweet,speech,')');
+            speech = speech.substr(1,speech.length()-1);
             speech.erase(remove(speech.begin(),speech.end(), '\''), speech.end());
             //cout << speech << endl;
             tweeter.insert(pair<string,string>(speech,word));
@@ -94,13 +96,40 @@ void Reader::getLibs(vector<User>& user, vector<string> & output)
 string Reader::writeLibs(vector<User> & users,string statement,
                          string madUser, string speech)
 {
-   for(int x = 0; x < users.size(); x++)
-   {
-       if(users[x].getName() == madUser)
-       {
-           cout << users[x].getName() << endl;
-       }
-   }
+    vector<string> newWord;
+    int count;
+    for(int x = 0; x < users.size(); x++)
+    {
+        if(users[x].getName() == madUser)
+        {
+            multimap<string,string> temp = users[x].getTweet();
+            for(auto mad = temp.begin(); mad != temp.end();  mad++)
+            {
+                regex r("\\b" + (speech) + "\\b"); //ONLY THAT WORD
+                smatch m; //Not really sure but it matches on a string
+                string part = mad->first; //the part of speech
+                if(regex_search(part,m,r)/*part.find(speech) != string::npos && part.find(' ') != string::npos*/)
+                {
+                    cout << madUser << " " << speech << " " << part
+                         << " " << mad->second << endl;
+                }
+            }
+//            //range is the pair of iterator that will make up the range of the map with only the correct partofspeech
+//            pair<multimap<string,string>::iterator
+//                    ,multimap<string,string>::iterator> range;
+//            range = (users[x].getTweet()).equal_range(speech);//returns an iterator with only the keys of speech
+//            size_t sizeMap = distance(range.first,range.second);//size of iterator
+//            if(sizeMap != 0)
+//            {
+
+//                size_t index = rand() % sizeMap; //Random Index
+//                advance(range.first,index);
+//                string word = (range.first)->first;
+//                cout << word;
+//                newWord.push_back(word);
+//            }
+        }
+    }
 //    for(auto x = madUsers.begin(); x != madUsers.end(); x++)
 //    {
 //        string madUser= x->second;
