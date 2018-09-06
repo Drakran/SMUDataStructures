@@ -6,17 +6,18 @@
 
 using namespace std;
 
-Reader::Reader(string fileName,string madLibName)
+Reader::Reader(string fileName,string madLibName,string outputName)
 {
     name = fileName;
     libName = madLibName;
+    outName = outputName;
 }
 
 /* getData gets the data from a csv twitter file and stores
  * each line as a user object
  * @param the vector of user objects that all users will be stored in
  */
-void Reader::getData(vector<User*> & users)
+void Reader::getData(vector<User> & users)
 {
     ifstream file;
     file.open(name);
@@ -51,7 +52,7 @@ void Reader::getData(vector<User*> & users)
         }
         getline(file,mood,'\n');
 
-        User * temp = new User(id,user,tweeter,mood);
+        User  temp = User(id,user,tweeter,mood);
         users.push_back(temp);
         tweeter.clear(); //Clears the multimap for reuse
         getline(file,id,','); //To test file.good()
@@ -60,7 +61,7 @@ void Reader::getData(vector<User*> & users)
     file.close();
 }
 
-void Reader::getLibs(multimap<string,string> &madUsers)
+void Reader::getLibs(vector<User>& user, vector<string> & output)
 {
     ifstream file;
     file.open(libName);
@@ -69,22 +70,50 @@ void Reader::getLibs(multimap<string,string> &madUsers)
         cout << "Error, can't open file" << endl;
         exit(EXIT_FAILURE);
     }
-
+    string statement; //Whole Line
     string name, partSpeech ,garbage;
     getline(file,name,' ');
     while(file.good())
     {
-
-
-        getline(file,garbage, '[');
-        getline(file,partSpeech, ']');
-        getline(file,garbage, '\n');
-
-        madUsers.insert(pair<string,string>(name,partSpeech));
+        getline(file,statement, '\n'); //Gets the whole line
+        stringstream lib(statement);
+       // cout << statement << endl;
+        //Now to partition the lib and find the part of speech to replace
+        getline(lib,garbage, '[');
+        getline(lib,partSpeech, ']');
+       // cout << partSpeech << endl;
+        getline(lib,garbage, '\n');
+        writeLibs(user,statement,name,partSpeech);
+        //madUsers.insert(pair<string,string>(name,partSpeech));
 
         getline(file,name,' ');
     }
     file.close();
 }
+
+string Reader::writeLibs(vector<User> & users,string statement,
+                         string madUser, string speech)
+{
+   for(int x = 0; x < users.size(); x++)
+   {
+       if(users[x].getName() == madUser)
+       {
+           cout << users[x].getName() << endl;
+       }
+   }
+//    for(auto x = madUsers.begin(); x != madUsers.end(); x++)
+//    {
+//        string madUser= x->second;
+//        for(auto temp: )
+//    }
+    return "hi";
+}
+
+void Reader::printLibs()
+{
+
+}
+
+
 
 
