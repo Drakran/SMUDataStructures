@@ -6,6 +6,7 @@ User::User(string id, string name, multimap<string,string> tuple, string mood)
     this->name = name;
     tweet = tuple;
     this->mood = mood;
+    numTweets++;
 }
 /* GetId returns the numerical id of the user object
  * @return the id in string form
@@ -39,3 +40,4 @@ string User::getMood()
 {
     return mood;
 }
+

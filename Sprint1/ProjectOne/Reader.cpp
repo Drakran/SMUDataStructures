@@ -85,7 +85,7 @@ void Reader::getLibs(vector<User>& user, vector<string> & output)
         getline(lib,partSpeech, ']');
        // cout << partSpeech << endl;
         getline(lib,garbage, '\n');
-        writeLibs(user,statement,name,partSpeech);
+        output.push_back(writeLibs(user,statement,name,partSpeech));
         //madUsers.insert(pair<string,string>(name,partSpeech));
 
         getline(file,name,' ');
@@ -97,21 +97,25 @@ string Reader::writeLibs(vector<User> & users,string statement,
                          string madUser, string speech)
 {
     vector<string> newWord;
-    int count;
+    int count{0};
     for(int x = 0; x < users.size(); x++)
     {
         if(users[x].getName() == madUser)
         {
+
             multimap<string,string> temp = users[x].getTweet();
             for(auto mad = temp.begin(); mad != temp.end();  mad++)
             {
-                regex r("\\b" + (speech) + "\\b"); //ONLY THAT WORD
+                regex r("\\b" + (speech) + "\\b"); //GETS ONLY THAT WORD(This took an hour to learn regex)
                 smatch m; //Not really sure but it matches on a string
                 string part = mad->first; //the part of speech
                 if(regex_search(part,m,r)/*part.find(speech) != string::npos && part.find(' ') != string::npos*/)
                 {
-                    cout << madUser << " " << speech << " " << part
-                         << " " << mad->second << endl;
+                    //cout << madUser << " " << speech << " " << part
+                    //    << " " << mad->second << endl;
+                    string word = mad->second;
+                    newWord.push_back(word);
+                    count++;
                 }
             }
 //            //range is the pair of iterator that will make up the range of the map with only the correct partofspeech
@@ -130,18 +134,21 @@ string Reader::writeLibs(vector<User> & users,string statement,
 //            }
         }
     }
-//    for(auto x = madUsers.begin(); x != madUsers.end(); x++)
-//    {
-//        string madUser= x->second;
-//        for(auto temp: )
-//    }
-    return "hi";
+
+    size_t index = rand() % count; //Random NUmber thats not really random number
+    string finalWord = newWord[index];//The finalword is a random word thats selected to be put in
+    string completedTweet = regex_replace(statement, regex(speech), finalWord); //replace
+    completedTweet = madUser + " " + completedTweet;
+ //   cout << completedTweet << endl;
+    return completedTweet;
 }
 
 void Reader::printLibs()
 {
 
 }
+
+
 
 
 

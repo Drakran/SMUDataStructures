@@ -16,6 +16,11 @@ int main(int argc, char *argv[])
     //cout << argv[1] << endl;
     scanner.getData(users);
     scanner.getLibs(users,output);
+    for(int x = 0; x < output.size(); x++)
+    {
+        cout << output[x] << endl;
+    }
+    cout << User::getTotalTweets();
     //scanner.writeLibs(users,madUsers);
     //cout << users[1]->getName();
 //    for(int x = 0; x < users.size(); x++)
