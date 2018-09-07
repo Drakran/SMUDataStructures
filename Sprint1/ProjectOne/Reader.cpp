@@ -52,6 +52,7 @@ void Reader::getData(vector<User> & users)
             //cout << speech << endl;
             tweeter.insert(pair<string,string>(speech,word));
         }
+        getline(file,garbage, ',');
         getline(file,mood,'\n');
 
         User  temp = User(id,user,tweeter,mood);
@@ -79,7 +80,7 @@ void Reader::getLibs(vector<User>& user, vector<string> & output)
     {
         getline(file,statement, '\n'); //Gets the whole line
         stringstream lib(statement);
-       // cout << statement << endl;
+        //cout << statement << endl;
         //Now to partition the lib and find the part of speech to replace
         getline(lib,garbage, '[');
         getline(lib,partSpeech, ']');
@@ -98,7 +99,7 @@ string Reader::writeLibs(vector<User> & users,string statement,
 {
     vector<string> newWord;
     int count{0};
-    for(int x = 0; x < users.size(); x++)
+    for(unsigned int x = 0; x < users.size(); x++)
     {
         if(users[x].getName() == madUser)
         {
@@ -109,10 +110,10 @@ string Reader::writeLibs(vector<User> & users,string statement,
                 regex r("\\b" + (speech) + "\\b"); //GETS ONLY THAT WORD(This took an hour to learn regex)
                 smatch m; //Not really sure but it matches on a string
                 string part = mad->first; //the part of speech
-                if(/*regex_search(part,m,r)*/part.find(speech) != string::npos/* && part.find(' ') != string::npos*/)
+                if(regex_search(part,m,r) /*part.find(speech) != string::npos && part.find(' ') != string::npos*/)
                 {
-                    //cout << madUser << " " << speech << " " << part
-                    //    << " " << mad->second << endl;
+//                    cout << madUser << " " << speech << " " << part
+//                        << " " << mad->second << endl;
                     string word = mad->second;
                     newWord.push_back(word);
                     count++;
@@ -134,7 +135,7 @@ string Reader::writeLibs(vector<User> & users,string statement,
 //            }
         }
     }
-
+    if(count == 0) {count = 1;} //Just in case somehow the word is not in there itll get something
     size_t index = rand() % count; //Random NUmber thats not really random number
     string finalWord = newWord[index];//The finalword is a random word thats selected to be put in
     string completedTweet = regex_replace(statement, regex(speech), finalWord); //replace

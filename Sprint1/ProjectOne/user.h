@@ -17,6 +17,9 @@ private:
     static int numTweet;
     static int posTweet;
     static int negTweet;
+    static int posAvg;
+    static int negAvg;
+
 public:
     User(string,string,multimap<string,string>,string);
     string getID();

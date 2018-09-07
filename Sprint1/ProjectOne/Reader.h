@@ -11,6 +11,7 @@ private:
     std::string name;//First File Name(tweets)
     std::string libName;//2nd File(
     std::string outName;
+
 public:
     Reader(std::string, std::string,std::string);
     void getData(vector<User> &);

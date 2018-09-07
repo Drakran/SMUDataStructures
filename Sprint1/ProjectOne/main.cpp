@@ -27,11 +27,46 @@ int main(int argc, char *argv[])
     cout << User::getTotalTweets() << endl;
     cout << User::getPositiveTweets() << endl;
     cout << User::getNegativeTweets() << endl;
+
+    vector<string> parts = {"ADJECTIVE",
+    "ADJECTIVE OR NUMERAL",
+    "ADVERB",
+    "CLOSING PARENTHESIS",
+    "CLOSING QUOTATION MARK",
+    "COLON OR ELLIPSIS",
+    "COMMA",
+    "CONJUNCTION",
+    "DETERMINER",
+    "DOLLAR",
+    "EXISTENTIAL THERE",
+    "FOREIGN WORD",
+    "GENITIVE MARKER",
+    "HASHTAG",
+    "INTERJECTION",
+    "MODAL AUXILIARY",
+    "NOUN",
+    "NUMBER",
+    "NUMERAL",
+    "OPENING PARENTHESIS",
+    "PARTICLE",
+    "PREPOSITION OR CONJUNCTION",
+    "PRONOUN",
+    "SENTENCE TERMINATOR",
+    "SYMBOL",
+    "TO",
+    "URL",
+    "USERNAME",
+    "VERB"};
+//    for(int x = 0; x < parts.size(); x++)
+//    {
+//        cout << parts[x];
+//    }
+
     //scanner.writeLibs(users,madUsers);
     //cout << users[1]->getName();
 //    for(int x = 0; x < users.size(); x++)
 //    {
-//        if((users[x].getName()) == "aristocracy")
+//        if(true)
 //        {
 //            cout << users[x].getName();
 //            for(auto temp : users[x].getTweet())
