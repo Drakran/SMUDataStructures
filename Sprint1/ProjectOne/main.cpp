@@ -6,6 +6,10 @@
 
 using namespace std;
 
+int User::numTweet = 0;
+int User::posTweet = 0;
+int User::negTweet = 0;
+
 int main(int argc, char *argv[])
 {
     vector<User> users;
@@ -20,18 +24,23 @@ int main(int argc, char *argv[])
     {
         cout << output[x] << endl;
     }
-    cout << User::getTotalTweets();
+    cout << User::getTotalTweets() << endl;
+    cout << User::getPositiveTweets() << endl;
+    cout << User::getNegativeTweets() << endl;
     //scanner.writeLibs(users,madUsers);
     //cout << users[1]->getName();
 //    for(int x = 0; x < users.size(); x++)
-//    if((users[x].getName()) == "aristocracy")
 //    {
-//        cout << users[x].getName();
-//        for(auto temp : users[x].getTweet())
+//        if((users[x].getName()) == "aristocracy")
 //        {
-//            cout << temp.first << " " << temp.second << endl;
+//            cout << users[x].getName();
+//            for(auto temp : users[x].getTweet())
+//            {
+//                cout << temp.first << " " << temp.second << endl;
+//            }
 //        }
 //    }
+
 //    for(auto x = madUsers.begin(); x != madUsers.end(); x++)
 //    {
 //        cout<< x->first << " " << x->second << endl;//

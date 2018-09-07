@@ -109,7 +109,7 @@ string Reader::writeLibs(vector<User> & users,string statement,
                 regex r("\\b" + (speech) + "\\b"); //GETS ONLY THAT WORD(This took an hour to learn regex)
                 smatch m; //Not really sure but it matches on a string
                 string part = mad->first; //the part of speech
-                if(regex_search(part,m,r)/*part.find(speech) != string::npos && part.find(' ') != string::npos*/)
+                if(/*regex_search(part,m,r)*/part.find(speech) != string::npos/* && part.find(' ') != string::npos*/)
                 {
                     //cout << madUser << " " << speech << " " << part
                     //    << " " << mad->second << endl;
@@ -147,9 +147,3 @@ void Reader::printLibs()
 {
 
 }
-
-
-
-
-
-

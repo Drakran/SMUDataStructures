@@ -14,18 +14,16 @@ private:
     string name;
     multimap<string,string> tweet;
     string mood;
-public:
     static int numTweet;
+    static int posTweet;
+    static int negTweet;
+public:
     User(string,string,multimap<string,string>,string);
     string getID();
     string getName();
     multimap<string,string> getTweet();
     string getMood();
-    static int getTotalTweets()
-    {
-        return numTweets;
-    }
-
+    static int getTotalTweets();
     static int getPositiveTweets();
     static int getNegativeTweets();
 };
