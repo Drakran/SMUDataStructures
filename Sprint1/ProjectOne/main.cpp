@@ -19,8 +19,8 @@ int main(int argc, char *argv[])
     Reader scanner(argv[1],argv[2],argv[3]);
     scanner.getData(users);
 //    scanner.getLibs(users,output);
-    scanner.printLibs(output);
-    scanner.calculateStatistics(users,output);
+//    scanner.printLibs(output);
+//    scanner.calculateStatistics(users,output);
 //    for(int x = 0; x < output.size(); x++)
 //    {
 //        cout << output[x] << endl;

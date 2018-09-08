@@ -49,7 +49,12 @@ void Reader::getData(vector<User> & users)
             getline(tweet,speech,')');
             speech = speech.substr(1,speech.length()-1);
             speech.erase(remove(speech.begin(),speech.end(), '\''), speech.end());
-            //cout << speech << endl;
+            if(speech.find("COMMA") != string::npos)
+            {
+                speech = "COMMA";
+                word = ',';
+            }
+            cout << word << " " << speech << endl;
             tweeter.insert(pair<string,string>(speech,word));
         }
         getline(file,garbage, ',');
@@ -234,24 +239,24 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
             speechNegWords.insert(pair<string,map<string,int>>(partSpeech,negWords));
         }
     }
-    map<string,int> test = speechNegWords["ADVERB"];
-    cout << "Negative adverbs = 0" << '\n';
-    for(auto x = test.begin(); x!= test.end(); x++)
-    {
-        cout<< x->first << " " << x->second << endl;
-    }
-    test = speechNegWords["NOUN"];
-        cout << "Negative nouns = 0" << '\n';
-    for(auto x = test.begin(); x!= test.end(); x++)
-    {
-        cout<< x->first << " " << x->second << endl;
-    }
-    test = speechPosWords["NOUN"];
-    cout << "POSITIVe worDS = 4" << '\n';
-    for(auto x = test.begin(); x!= test.end(); x++)
-    {
-        cout<< x->first << " " << x->second << endl;
-    }
+//    map<string,int> test = speechNegWords["ADVERB"];
+//    cout << "Negative adverbs = 0" << '\n';
+//    for(auto x = test.begin(); x!= test.end(); x++)
+//    {
+//        cout<< x->first << " " << x->second << endl;
+//    }
+//    test = speechNegWords["NOUN"];
+//        cout << "Negative nouns = 0" << '\n';
+//    for(auto x = test.begin(); x!= test.end(); x++)
+//    {
+//        cout<< x->first << " " << x->second << endl;
+//    }
+//    test = speechPosWords["NOUN"];
+//    cout << "POSITIVe worDS = 4" << '\n';
+//    for(auto x = test.begin(); x!= test.end(); x++)
+//    {
+//        cout<< x->first << " " << x->second << endl;
+//    }
 
 
 
