@@ -46,6 +46,7 @@ void Reader::getData(vector<User> & users)
         {
             getline(tweet,word,',');
             word.erase(remove(word.begin(),word.end(), '\''), word.end());
+            word.erase(remove(word.begin(),word.end(), '\"'), word.end());
             getline(tweet,speech,')');
             speech = speech.substr(1,speech.length()-1);
             speech.erase(remove(speech.begin(),speech.end(), '\''), speech.end());
@@ -54,7 +55,7 @@ void Reader::getData(vector<User> & users)
                 speech = "COMMA";
                 word = ',';
             }
-            cout << word << " " << speech << endl;
+            //cout << word << " " << speech << endl;
             tweeter.insert(pair<string,string>(speech,word));
         }
         getline(file,garbage, ',');
@@ -112,10 +113,10 @@ string Reader::writeLibs(vector<User> & users,string statement,
             multimap<string,string> temp = users[x].getTweet();
             for(auto mad = temp.begin(); mad != temp.end();  mad++)
             {
-                regex r("\\b" + (speech) + "\\b"); //GETS ONLY THAT WORD(This took an hour to learn regex)
+                regex r("\\b" + (speech) + "\\b"); //GETS ONLY THAT WORD
                 smatch m; //Not really sure but it matches on a string
                 string part = mad->first; //the part of speech
-                if(regex_search(part,m,r) /*part.find(speech) != string::npos && part.find(' ') != string::npos*/)
+                if(regex_search(part,m,r))
                 {
 //                    cout << madUser << " " << speech << " " << part
 //                        << " " << mad->second << endl;
@@ -126,12 +127,12 @@ string Reader::writeLibs(vector<User> & users,string statement,
             }
         }
     }
-    if(count == 0) {count = 1;} //Just in case somehow the word is not in there itll get something
-    size_t index = rand() % count; //Random NUmber thats not really random number
-    string finalWord = newWord[index];//The finalword is a random word thats selected to be put in
+    if(count == 0) {count = 1;} //If word is not there
+    size_t index = rand() % count; //Pseudo -Random
+    string finalWord = newWord[index];//Finalword
     string completedTweet = regex_replace(statement, regex(speech), finalWord); //replace
     completedTweet = madUser + " " + completedTweet;
- //   cout << completedTweet << endl;
+    cout << completedTweet << endl;
     return completedTweet;
 }
 
@@ -179,8 +180,9 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
     "URL",
     "USERNAME",
     "VERB"};
-    int posAvg{0};
-    int negAvg{0};
+    cout.precision(3);
+    double posAvg{0};
+    double negAvg{0};
     map<string,map<string,int>> speechPosWords;
     map<string,map<string,int>> speechNegWords;
     bool posTrue = false;
@@ -189,7 +191,7 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
     {
         posTrue = false;
         negTrue = false;
-        map<string,int> posWords; // Pos and neg Words to be put into a specific part of speech
+        map<string,int> posWords; //Pos and neg Words to be put into a specific part of speech
         map<string,int> negWords;
         for(auto user: users)
         {
@@ -239,27 +241,141 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
             speechNegWords.insert(pair<string,map<string,int>>(partSpeech,negWords));
         }
     }
-//    map<string,int> test = speechNegWords["ADVERB"];
-//    cout << "Negative adverbs = 0" << '\n';
-//    for(auto x = test.begin(); x!= test.end(); x++)
-//    {
-//        cout<< x->first << " " << x->second << endl;
-//    }
-//    test = speechNegWords["NOUN"];
-//        cout << "Negative nouns = 0" << '\n';
-//    for(auto x = test.begin(); x!= test.end(); x++)
-//    {
-//        cout<< x->first << " " << x->second << endl;
-//    }
-//    test = speechPosWords["NOUN"];
-//    cout << "POSITIVe worDS = 4" << '\n';
-//    for(auto x = test.begin(); x!= test.end(); x++)
-//    {
-//        cout<< x->first << " " << x->second << endl;
-//    }
 
+    //This is finalzing the variables and sending it into print
 
+    /*This is getting the Average based on size of map
+     * (i.e. number of parts of speeches)
+     */
 
+    //Positive Loop to add up Count
+    for(auto outerLoop: speechPosWords)
+    {
+        for(auto count: outerLoop.second)
+        {
+            posAvg += count.second;
+        }
+    }
+    //If num positive = 0, pos AVg = 0
+    cout << posAvg << endl;
+    if(User::getPositiveTweets() != 0)
+    {
+        posAvg = (posAvg/User::getPositiveTweets());
+    }
+    //Negative Loop to add Count
+    for(auto outerLoop: speechNegWords)
+    {
+        for(auto count: outerLoop.second)
+        {
+            negAvg += count.second;
+        }
+    }
+    if(User::getNegativeTweets() != 0)
+    {
+        negAvg = (negAvg/User::getNegativeTweets());
+    }
+
+    //Number of words per part of speech
+    int totalWords = 0;
+    for(int speech = 0; speech < parts.size(); speech++)
+    {
+        totalWords = 0;
+        string grammarTitle = parts[speech];
+        for(auto outerLoop: speechPosWords)
+        {
+            //If the partofSpeech is the same as the one in the map
+            if(outerLoop.first == grammarTitle)
+            {
+                for(auto count: outerLoop.second)
+                {
+                    totalWords += count.second;
+                }
+            }
+
+        }
+    //cout << grammarTitle << " " << totalWords << '\n';
+    }
+    //cout << "Negative Title" << '\n';
+    for(int speech = 0; speech < parts.size(); speech++)
+    {
+        totalWords = 0;
+        string grammarTitle = parts[speech];
+        for(auto outerLoop: speechNegWords)
+        {
+            //If the partofSpeech is the same as the one in the map
+            if(outerLoop.first == grammarTitle)
+            {
+                for(auto count: outerLoop.second)
+                {
+                    totalWords += count.second;
+                }
+            }
+
+        }
+
+    //cout << grammarTitle << " " << totalWords << '\n';
+    }
+
+    //Top Three Word Method
+
+    for(int speech = 0; speech < parts.size(); speech++)
+    {
+        vector<string> topThree = {"Nothing", "Nothing", "Nothing"};
+        string grammarTitle = parts[speech];
+        for(auto outerLoop: speechPosWords)
+        {
+            //If the partofSpeech is the same as the one in the map
+            if(outerLoop.first == grammarTitle)
+            {
+                cout<< grammarTitle << endl;
+                map<string,int> tempHolds = outerLoop.second;
+                multimap<int,string, greater <int>> finalMap;
+                for(auto iter: tempHolds)
+                {
+
+                    finalMap.insert(pair<int,string>(iter.second,iter.first));
+                }
+                for(auto iter2: finalMap)
+                {
+                    cout << iter2.first << " " << iter2.second << '\n';
+                }
+            }
+
+        }
+    //cout << grammarTitle << " " << totalWords << '\n';
+    }
+
+    for(int speech = 0; speech < parts.size(); speech++)
+    {
+        multimap<int,string, greater <int>> finalMap;
+        vector<string> topThree = {"Nothing", "Nothing", "Nothing"};
+        string grammarTitle = parts[speech];
+        for(auto outerLoop: speechNegWords)
+        {
+            //If the partofSpeech is the same as the one in the map
+            if(outerLoop.first == grammarTitle)
+            {
+                cout<< grammarTitle << endl;
+                map<string,int> tempHolds = outerLoop.second;
+
+                for(auto iter: tempHolds)
+                {
+
+                    finalMap.insert(pair<int,string>(iter.second,iter.first));
+                }
+                for(auto iter2: finalMap)
+                {
+                    cout << iter2.first << " " << iter2.second << '\n';
+                }
+            }
+
+        }
+        if(finalMap.size() < 3)
+        {
+
+        }
+    //cout << grammarTitle << " " << totalWords << '\n';
+    }
 }
 
 

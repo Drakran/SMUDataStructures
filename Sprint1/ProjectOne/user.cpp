@@ -74,30 +74,5 @@ int User::getNegativeTweets()
     return negTweet;
 }
 
-///* getNegAvg returns the average negative tweets word(static method)
-// * @return negAvgWords the avg number of word in -tweets (static)
-// */
-//int User::getNegAvg()
-//{
-//    return negAvgWords;
-//}
-
-///* getPosAvg returns the average negative tweets word(static method)
-// * @return posAvgWords the avg number of word in -tweets (static)
-// */
-//int User::getPosAvg()
-//{
-//    return posAvgWords;
-//}
-
-//void User::setPosAvg()
-//{
-//    posAvgWords++;
-//}
-
-//void User::setNegAvg()
-//{
-//    negAvgWords++;
-//}
 
 

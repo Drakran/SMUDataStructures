@@ -9,8 +9,6 @@ using namespace std;
 int User::numTweet = 0;
 int User::posTweet = 0;
 int User::negTweet = 0;
-int User::posAvgWords = 0;
-int User::negAvgWords = 0;
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +18,7 @@ int main(int argc, char *argv[])
     scanner.getData(users);
 //    scanner.getLibs(users,output);
 //    scanner.printLibs(output);
-//    scanner.calculateStatistics(users,output);
+    scanner.calculateStatistics(users,output);
 //    for(int x = 0; x < output.size(); x++)
 //    {
 //        cout << output[x] << endl;
