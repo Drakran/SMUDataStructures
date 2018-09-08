@@ -7,14 +7,14 @@ User::User(string id, string name, multimap<string,string> tuple, string mood)
     this->name = name;
     tweet = tuple;
     this->mood = mood;
-    numTweet++;
+    numTweet++; //Increase total numTweets
     if(mood == "0")
     {
-        negTweet++;
+        negTweet++; //Increase negative tweet amounts
     }
     else
     {
-        posTweet++;
+        posTweet++; //Increase positive tweet
     }
 }
 /* GetId returns the numerical id of the user object
@@ -37,7 +37,7 @@ string User::getName()
  * and word of one tweet for one user
  * @return a multimap of of<partofspeech,word>
  */
-multimap<string,string> User::getTweet()
+multimap<string,string> & User::getTweet()
 {
     return tweet;
 }
@@ -50,21 +50,54 @@ string User::getMood()
     return mood;
 }
 
-//static int getTotalTweets()
-//{
-//    return numTweets;
-//}
+/* getTotalTweets returns the number of total tweets made(static method)
+ * @return numTweet the total number of tweets made (static)
+ */
 int User::getTotalTweets()
 {
     return numTweet;
 }
 
+/* getPositive returns the number of total positive made(static method)
+ * @return posTweet the total number of +tweets made (static)
+ */
 int User::getPositiveTweets()
 {
     return posTweet;
 }
 
+/* getNegative returns the number of total negative tweets made(static method)
+ * @return posTweet the total number of -tweets made (static)
+ */
 int User::getNegativeTweets()
 {
     return negTweet;
 }
+
+///* getNegAvg returns the average negative tweets word(static method)
+// * @return negAvgWords the avg number of word in -tweets (static)
+// */
+//int User::getNegAvg()
+//{
+//    return negAvgWords;
+//}
+
+///* getPosAvg returns the average negative tweets word(static method)
+// * @return posAvgWords the avg number of word in -tweets (static)
+// */
+//int User::getPosAvg()
+//{
+//    return posAvgWords;
+//}
+
+//void User::setPosAvg()
+//{
+//    posAvgWords++;
+//}
+
+//void User::setNegAvg()
+//{
+//    negAvgWords++;
+//}
+
+

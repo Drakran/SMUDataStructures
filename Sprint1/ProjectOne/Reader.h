@@ -17,6 +17,14 @@ public:
     void getData(vector<User> &);
     void getLibs(vector<User> &, vector<string> &);
     string writeLibs(vector<User> &,string, string, string);
-    void printLibs();
+    void printLibs(vector<string> &);
+    //void printStatistics();
+    void calculateStatistics(vector<User> &, vector<string> &);
+
 };
 #endif // READER_H
+
+/*Note I realize after the fact that I should've just made
+//the Vector<user> an instance variable but its too late, lessons learned
+//I Guess if you want mulitple user vectors its better but in this case no
+*/

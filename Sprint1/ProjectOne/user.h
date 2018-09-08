@@ -17,18 +17,22 @@ private:
     static int numTweet;
     static int posTweet;
     static int negTweet;
-    static int posAvg;
-    static int negAvg;
+    static int posAvgWords;
+    static int negAvgWords;
 
 public:
     User(string,string,multimap<string,string>,string);
     string getID();
     string getName();
-    multimap<string,string> getTweet();
+    multimap<string,string> & getTweet();
     string getMood();
     static int getTotalTweets();
     static int getPositiveTweets();
     static int getNegativeTweets();
+//    static int getPosAvg();
+//    static int getNegAvg();
+//    static void setPosAvg();
+//    static void setNegAvg();
 };
 
 #endif // USER_H

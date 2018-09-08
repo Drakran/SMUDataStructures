@@ -55,7 +55,7 @@ void Reader::getData(vector<User> & users)
         getline(file,garbage, ',');
         getline(file,mood,'\n');
 
-        User  temp = User(id,user,tweeter,mood);
+        User temp = User(id,user,tweeter,mood);
         users.push_back(temp);
         tweeter.clear(); //Clears the multimap for reuse
         getline(file,id,','); //To test file.good()
@@ -119,20 +119,6 @@ string Reader::writeLibs(vector<User> & users,string statement,
                     count++;
                 }
             }
-//            //range is the pair of iterator that will make up the range of the map with only the correct partofspeech
-//            pair<multimap<string,string>::iterator
-//                    ,multimap<string,string>::iterator> range;
-//            range = (users[x].getTweet()).equal_range(speech);//returns an iterator with only the keys of speech
-//            size_t sizeMap = distance(range.first,range.second);//size of iterator
-//            if(sizeMap != 0)
-//            {
-
-//                size_t index = rand() % sizeMap; //Random Index
-//                advance(range.first,index);
-//                string word = (range.first)->first;
-//                cout << word;
-//                newWord.push_back(word);
-//            }
         }
     }
     if(count == 0) {count = 1;} //Just in case somehow the word is not in there itll get something
@@ -144,7 +130,133 @@ string Reader::writeLibs(vector<User> & users,string statement,
     return completedTweet;
 }
 
-void Reader::printLibs()
+void Reader::printLibs(vector<string> & output)
 {
+    ofstream outFile;
+    outFile.open(outName);
+    for(auto out: output)
+    {
+        outFile << out << '\n';
+    }
+    outFile.close();
+}
+
+/*
+ */
+void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
+{
+    vector<string> parts = {"ADJECTIVE",
+    "ADJECTIVE OR NUMERAL",
+    "ADVERB",
+    "CLOSING PARENTHESIS",
+    "CLOSING QUOTATION MARK",
+    "COLON OR ELLIPSIS",
+    "COMMA",
+    "CONJUNCTION",
+    "DETERMINER",
+    "DOLLAR",
+    "EXISTENTIAL THERE",
+    "FOREIGN WORD",
+    "GENITIVE MARKER",
+    "HASHTAG",
+    "INTERJECTION",
+    "MODAL AUXILIARY",
+    "NOUN",
+    "NUMBER",
+    "NUMERAL",
+    "OPENING PARENTHESIS",
+    "PARTICLE",
+    "PREPOSITION OR CONJUNCTION",
+    "PRONOUN",
+    "SENTENCE TERMINATOR",
+    "SYMBOL",
+    "TO",
+    "URL",
+    "USERNAME",
+    "VERB"};
+    int posAvg{0};
+    int negAvg{0};
+    map<string,map<string,int>> speechPosWords;
+    map<string,map<string,int>> speechNegWords;
+    bool posTrue = false;
+    bool negTrue = false;
+    for(auto partSpeech: parts)
+    {
+        posTrue = false;
+        negTrue = false;
+        map<string,int> posWords; // Pos and neg Words to be put into a specific part of speech
+        map<string,int> negWords;
+        for(auto user: users)
+        {
+
+            multimap<string,string> userMap = user.getTweet(); //Gets the multimap of a user
+            pair<multimap<string,string>::iterator,multimap<string,string>::iterator> range;
+            range = userMap.equal_range(partSpeech); //Only the part of speeches
+            int count = distance(range.first,range.second);
+            if(count != 0)
+            {
+                if(user.getMood() == "0")
+                {
+                    negTrue = true;
+                    for(multimap<string,string>::iterator iter = range.first;
+                        iter != range.second; iter++)
+                    {
+                        string tempWord = iter->second;
+                        ++negWords[tempWord];
+
+                    }
+                }
+                else
+                {
+                    posTrue = true;
+                    for(multimap<string,string>::iterator iter = range.first;
+                        iter != range.second; iter++)
+                    {
+                        string tempWord = iter->second;
+                        ++posWords[tempWord];
+
+                    }
+                }
+            }
+
+            //tweeter.insert(pair<string,string>(speech,word));
+
+
+
+        }
+        if(posTrue)
+        {
+            speechPosWords.insert(pair<string,map<string,int>>(partSpeech,posWords));
+
+        }
+        if(negTrue)
+        {
+            speechNegWords.insert(pair<string,map<string,int>>(partSpeech,negWords));
+        }
+    }
+    map<string,int> test = speechNegWords["ADVERB"];
+    cout << "Negative adverbs = 0" << '\n';
+    for(auto x = test.begin(); x!= test.end(); x++)
+    {
+        cout<< x->first << " " << x->second << endl;
+    }
+    test = speechNegWords["NOUN"];
+        cout << "Negative nouns = 0" << '\n';
+    for(auto x = test.begin(); x!= test.end(); x++)
+    {
+        cout<< x->first << " " << x->second << endl;
+    }
+    test = speechPosWords["NOUN"];
+    cout << "POSITIVe worDS = 4" << '\n';
+    for(auto x = test.begin(); x!= test.end(); x++)
+    {
+        cout<< x->first << " " << x->second << endl;
+    }
+
+
 
 }
+
+
+
+
