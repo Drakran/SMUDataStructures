@@ -1,6 +1,11 @@
 #include "user.h"
 
-
+/*The user constructor creates an entire user for each tweet
+ * @param id the user id
+ * @param name the username
+ * @param tuple the entirety of the tuple in the tweet
+ * @param mood a 0 for negative and 4 for positive
+ */
 User::User(string id, string name, multimap<string,string> tuple, string mood)
 {
     this->id = id;

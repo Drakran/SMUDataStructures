@@ -1,3 +1,11 @@
+/* Terry Wang
+ * Sept 8th, 2018 4:45am(HALP)
+ * Data Structures Fontnenot
+ * The Reader class is designed to handle opening files and
+ * processing data in order to eventually output all the data
+ * of the user class in to its specific parts.
+ */
+
 #ifndef READER_H
 #define READER_H
 

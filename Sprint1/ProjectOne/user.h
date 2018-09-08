@@ -1,5 +1,13 @@
 #ifndef USER_H
 #define USER_H
+/* Terry Wang
+ * Sept 8th, 2018 4:45am(HALP)
+ * Data Structures Fontnenot
+ * The user class is designed to hold the users
+ * and is designed to contain one user for each tweet
+ * while also containing the entirety of the tweet data
+ * linked to the user.
+ */
 
 #include <string>
 #include <map>

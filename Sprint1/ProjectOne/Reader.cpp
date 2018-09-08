@@ -2,11 +2,19 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <iomanip>
 #include <regex> //I barely know what that is but It helped a lot
 
 
 using namespace std;
-
+/*
+ * The Reader Constructor takes in a fileName for the tweets
+ * A madLibName for the madLibFIle
+ * and an output Name for the output name
+ * @param fileName the tweet filename
+ * @param madLibName the madLibName
+ * @param outputName the output file name
+ */
 Reader::Reader(string fileName,string madLibName,string outputName)
 {
     name = fileName;
@@ -55,7 +63,6 @@ void Reader::getData(vector<User> & users)
                 speech = "COMMA";
                 word = ',';
             }
-            //cout << word << " " << speech << endl;
             tweeter.insert(pair<string,string>(speech,word));
         }
         getline(file,garbage, ',');
@@ -113,13 +120,15 @@ string Reader::writeLibs(vector<User> & users,string statement,
             multimap<string,string> temp = users[x].getTweet();
             for(auto mad = temp.begin(); mad != temp.end();  mad++)
             {
+                /*This Commented out code is if you want...
+                /Adjective == (Adjective or Numeral)
+                in if statement()
+                */
                 regex r("\\b" + (speech) + "\\b"); //GETS ONLY THAT WORD
                 smatch m; //Not really sure but it matches on a string
                 string part = mad->first; //the part of speech
                 if(regex_search(part,m,r))
                 {
-//                    cout << madUser << " " << speech << " " << part
-//                        << " " << mad->second << endl;
                     string word = mad->second;
                     newWord.push_back(word);
                     count++;
@@ -132,7 +141,6 @@ string Reader::writeLibs(vector<User> & users,string statement,
     string finalWord = newWord[index];//Finalword
     string completedTweet = regex_replace(statement, regex(speech), finalWord); //replace
     completedTweet = madUser + " " + completedTweet;
-    cout << completedTweet << endl;
     return completedTweet;
 }
 
@@ -275,9 +283,27 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
         negAvg = (negAvg/User::getNegativeTweets());
     }
 
+    //Sending Avg Number to output
+    string finalPosString;
+    finalPosString = "The Average Words(Part of Speech) for Positive Tweet is:" + to_string(posAvg);
+    finalPosString = finalPosString + '\n';
+    string finalNegString;
+    finalNegString = "The Average Words(Part of Speech) for Negative Tweet is:" + to_string(negAvg);
+    finalNegString = finalNegString + '\n';
+
+    //Push the Avg Number Strings to output
+    output.push_back(finalPosString);
+    output.push_back(finalNegString);
+
+
+    //Setting up output for next part
+    string posT = "Positive Tweet Number of Words per Part of Speech";
+    posT = posT + '\n';
+    output.push_back(posT);
+
     //Number of words per part of speech
     int totalWords = 0;
-    for(int speech = 0; speech < parts.size(); speech++)
+    for(unsigned int speech = 0; speech < parts.size(); speech++)
     {
         totalWords = 0;
         string grammarTitle = parts[speech];
@@ -293,10 +319,19 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
             }
 
         }
-    //cout << grammarTitle << " " << totalWords << '\n';
+    string numPos = "The Number of " + grammarTitle + " is " + to_string(totalWords);
+    numPos = numPos + ".";
+    output.push_back(numPos);
     }
-    //cout << "Negative Title" << '\n';
-    for(int speech = 0; speech < parts.size(); speech++)
+
+    //Setting up output for next part
+    string whiteSpace = "----------------------------" + '\n';
+    output.push_back(whiteSpace);
+    string posN = "Negative Tweet Number of Words per Part of Speech";
+    posN = posN + '\n';
+    output.push_back(posN);
+
+    for(unsigned int speech = 0; speech < parts.size(); speech++)
     {
         totalWords = 0;
         string grammarTitle = parts[speech];
@@ -312,50 +347,74 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
             }
 
         }
+    string numNeg = "The Number of " + grammarTitle + " is " + to_string(totalWords);
+    numNeg = numNeg + ".";
+    output.push_back(numNeg);
 
-    //cout << grammarTitle << " " << totalWords << '\n';
     }
+
+    //Setup Output for Next Part
+    string spaceNew = "----------------------------" + '\n';
+    output.push_back(spaceNew);
+    string threeP = "The Top three words for Positive Tweets";
+    threeP = threeP + '\n';
+    output.push_back(threeP);
 
     //Top Three Word Method
 
-    for(int speech = 0; speech < parts.size(); speech++)
+    for(unsigned int speech = 0; speech < parts.size(); speech++)
     {
-        vector<string> topThree = {"Nothing", "Nothing", "Nothing"};
+        multimap<int,string, greater <int>> finalMap;
+        vector<string> topThree = {"N/A", "N/A", "N/A"};
         string grammarTitle = parts[speech];
         for(auto outerLoop: speechPosWords)
         {
             //If the partofSpeech is the same as the one in the map
             if(outerLoop.first == grammarTitle)
             {
-                cout<< grammarTitle << endl;
                 map<string,int> tempHolds = outerLoop.second;
-                multimap<int,string, greater <int>> finalMap;
                 for(auto iter: tempHolds)
                 {
-
+                    //Reverse the map so we can sort by intergers
+                    //This leaves the map sorted
                     finalMap.insert(pair<int,string>(iter.second,iter.first));
-                }
-                for(auto iter2: finalMap)
-                {
-                    cout << iter2.first << " " << iter2.second << '\n';
                 }
             }
 
         }
-    //cout << grammarTitle << " " << totalWords << '\n';
-    }
+        //Gets the Top three if there are three, otherwise put in as many as can
+            multimap<int,string, greater <int>>::iterator iter = finalMap.begin();
 
-    for(int speech = 0; speech < parts.size(); speech++)
+            for(unsigned int z = 0; z < finalMap.size() && z < 3; z++)
+            {
+                    topThree[z] = iter->second;
+                    advance(iter,1);
+            }
+
+            string three = "The Top Three words in " + grammarTitle;
+            three = three + " are " + topThree[0];
+            three = three + "," + topThree[1];
+            three = three + ",and " + topThree[2];
+            output.push_back(three);
+       }
+
+    //Setup Output for Next Part
+    string space = "----------------------------" + '\n';
+    output.push_back(space);
+    string threeN = "The Top three words for Negative Tweets";
+    threeN = threeN + '\n';
+    output.push_back(threeN);
+
+    for(unsigned int speech = 0; speech < parts.size(); speech++)
     {
         multimap<int,string, greater <int>> finalMap;
-        vector<string> topThree = {"Nothing", "Nothing", "Nothing"};
+        vector<string> topThree = {"N/A", "N/A", "N/A"};
         string grammarTitle = parts[speech];
         for(auto outerLoop: speechNegWords)
         {
             //If the partofSpeech is the same as the one in the map
             if(outerLoop.first == grammarTitle)
             {
-                cout<< grammarTitle << endl;
                 map<string,int> tempHolds = outerLoop.second;
 
                 for(auto iter: tempHolds)
@@ -363,19 +422,27 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
 
                     finalMap.insert(pair<int,string>(iter.second,iter.first));
                 }
-                for(auto iter2: finalMap)
-                {
-                    cout << iter2.first << " " << iter2.second << '\n';
-                }
             }
 
         }
-        if(finalMap.size() < 3)
-        {
-
-        }
-    //cout << grammarTitle << " " << totalWords << '\n';
-    }
+        //Gets the Top three if there are three, otherwise less than three
+            multimap<int,string, greater <int>>::iterator iter = finalMap.begin();
+            for(unsigned int z = 0; z < finalMap.size() && z < 3; z++)
+            {
+                    topThree[z] = iter->second;
+                    advance(iter,1);
+            }
+            string three = "The Top Three words in " + grammarTitle;
+            three = three + " are " + topThree[0];
+            three = three + "," + topThree[1];
+            three = three + ",and " + topThree[2];
+            output.push_back(three);
+       }
+    //Setup For next block of text(I didn't plan this that well)
+    string spaceLast = "----------------------------" + '\n';
+    output.push_back(spaceLast);
+    string finalLibs ="THE LIBS";
+    output.push_back(finalLibs);
 }
 
 
