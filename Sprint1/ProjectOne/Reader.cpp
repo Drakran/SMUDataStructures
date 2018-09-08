@@ -40,7 +40,7 @@ void Reader::getData(vector<User> & users)
     string tuple; //The whole tuple
     string id,user,word,speech,mood;
     multimap<string,string> tweeter;
-    string garbage;
+    string garbage; //Just useless
     getline(file,line); //Ignores First Line
     getline(file,id,','); //Gets the first id
     while(file.good())
@@ -53,15 +53,15 @@ void Reader::getData(vector<User> & users)
         while(getline(tweet,garbage,'('))
         {
             getline(tweet,word,',');
-            word.erase(remove(word.begin(),word.end(), '\''), word.end());
+            word.erase(remove(word.begin(),word.end(), '\''), word.end()); //remove '''
             word.erase(remove(word.begin(),word.end(), '\"'), word.end());
             getline(tweet,speech,')');
-            speech = speech.substr(1,speech.length()-1);
+            speech = speech.substr(1,speech.length()-1); //remove spaces and such
             speech.erase(remove(speech.begin(),speech.end(), '\''), speech.end());
             if(speech.find("COMMA") != string::npos)
             {
                 speech = "COMMA";
-                word = ',';
+                word = ','; //BRUTE FORCE
             }
             tweeter.insert(pair<string,string>(speech,word));
         }
@@ -73,10 +73,14 @@ void Reader::getData(vector<User> & users)
         tweeter.clear(); //Clears the multimap for reuse
         getline(file,id,','); //To test file.good()
     }
-
     file.close();
 }
-
+/*
+ * getLibs gets the data for the libs and stores them in a vector
+ * then compares them to the user and replaces them
+ * @param user the user vector(probably should've made this a variable)
+ * @param output where all the libs go
+ */
 void Reader::getLibs(vector<User>& user, vector<string> & output)
 {
     ifstream file;
@@ -93,20 +97,25 @@ void Reader::getLibs(vector<User>& user, vector<string> & output)
     {
         getline(file,statement, '\n'); //Gets the whole line
         stringstream lib(statement);
-        //cout << statement << endl;
         //Now to partition the lib and find the part of speech to replace
         getline(lib,garbage, '[');
         getline(lib,partSpeech, ']');
-       // cout << partSpeech << endl;
         getline(lib,garbage, '\n');
         output.push_back(writeLibs(user,statement,name,partSpeech));
         //madUsers.insert(pair<string,string>(name,partSpeech));
-
         getline(file,name,' ');
     }
     file.close();
 }
 
+/*
+ * writeLibs replaces all the libs and send thems back
+ * @param user the user vector
+ * @param statement is the entire lib statement
+ * @param madUser is the user that the lib needs
+ * @param speech is the part of speech
+ * @return is the replaced string
+ */
 string Reader::writeLibs(vector<User> & users,string statement,
                          string madUser, string speech)
 {
@@ -120,10 +129,9 @@ string Reader::writeLibs(vector<User> & users,string statement,
             multimap<string,string> temp = users[x].getTweet();
             for(auto mad = temp.begin(); mad != temp.end();  mad++)
             {
-                /*This Commented out code is if you want...
-                /Adjective == (Adjective or Numeral)
-                in if statement()
-                */
+                //IMPORTANT NOTE: this makes it so Adjective gets both
+                //Adjective and (Adjdective and Numeral) can be changed
+                //if want to be exclusive, do part == speech
                 regex r("\\b" + (speech) + "\\b"); //GETS ONLY THAT WORD
                 smatch m; //Not really sure but it matches on a string
                 string part = mad->first; //the part of speech
@@ -153,9 +161,13 @@ void Reader::printLibs(vector<string> & output)
         outFile << out << '\n';
     }
     outFile.close();
+    cout << "Congraulations, Terry Applauds you for running this program." << endl;
 }
 
 /*
+ * this class calcualtes all the statistcs and puts into output to be read
+ * @param users is the user class
+ * @param output the strings to be outputed
  */
 void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
 {
@@ -191,19 +203,21 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
     cout.precision(3);
     double posAvg{0};
     double negAvg{0};
-    map<string,map<string,int>> speechPosWords;
+    //DONE in a <PART OF SPEECH, MAP OF WORDS FOR SPEECH>
+    map<string,map<string,int>> speechPosWords; //Final maps with all words
     map<string,map<string,int>> speechNegWords;
     bool posTrue = false;
     bool negTrue = false;
     for(auto partSpeech: parts)
     {
+        //These bools are to make sure there are actually things to put into pos/negWords
+        //if False the user didn't have that partofSpeech
         posTrue = false;
         negTrue = false;
         map<string,int> posWords; //Pos and neg Words to be put into a specific part of speech
         map<string,int> negWords;
         for(auto user: users)
         {
-
             multimap<string,string> userMap = user.getTweet(); //Gets the multimap of a user
             pair<multimap<string,string>::iterator,multimap<string,string>::iterator> range;
             range = userMap.equal_range(partSpeech); //Only the part of speeches
@@ -229,15 +243,9 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
                     {
                         string tempWord = iter->second;
                         ++posWords[tempWord];
-
                     }
                 }
             }
-
-            //tweeter.insert(pair<string,string>(speech,word));
-
-
-
         }
         if(posTrue)
         {
@@ -250,9 +258,9 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
         }
     }
 
-    //This is finalzing the variables and sending it into print
 
-    /*This is getting the Average based on size of map
+
+    /*This is getting the Average based on size of map-----------------------------
      * (i.e. number of parts of speeches)
      */
 
@@ -264,12 +272,13 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
             posAvg += count.second;
         }
     }
+
     //If num positive = 0, pos AVg = 0
-    cout << posAvg << endl;
     if(User::getPositiveTweets() != 0)
     {
         posAvg = (posAvg/User::getPositiveTweets());
     }
+
     //Negative Loop to add Count
     for(auto outerLoop: speechNegWords)
     {
@@ -278,12 +287,15 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
             negAvg += count.second;
         }
     }
+
     if(User::getNegativeTweets() != 0)
     {
         negAvg = (negAvg/User::getNegativeTweets());
     }
 
     //Sending Avg Number to output
+    string entry = "This is Property of Terry";
+    output.push_back(entry);
     string finalPosString;
     finalPosString = "The Average Words(Part of Speech) for Positive Tweet is:" + to_string(posAvg);
     finalPosString = finalPosString + '\n';
@@ -301,7 +313,8 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
     posT = posT + '\n';
     output.push_back(posT);
 
-    //Number of words per part of speech
+    //Number of words per part of speech ---------------------------------------------
+
     int totalWords = 0;
     for(unsigned int speech = 0; speech < parts.size(); speech++)
     {
@@ -314,10 +327,9 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
             {
                 for(auto count: outerLoop.second)
                 {
-                    totalWords += count.second;
+                    totalWords += count.second; //Keep adding count
                 }
             }
-
         }
     string numPos = "The Number of " + grammarTitle + " is " + to_string(totalWords);
     numPos = numPos + ".";
@@ -330,6 +342,8 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
     string posN = "Negative Tweet Number of Words per Part of Speech";
     posN = posN + '\n';
     output.push_back(posN);
+
+    //NEGATIVE FOR LOOP
 
     for(unsigned int speech = 0; speech < parts.size(); speech++)
     {
@@ -360,13 +374,16 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
     threeP = threeP + '\n';
     output.push_back(threeP);
 
-    //Top Three Word Method
+    //Top Three Word Method--------------------------------------------------
+    //IMPORTANT NOTE: This has a difference between Uppercase and Lowercase
+    //IF want to have no difference simply force string to lowercase when
+    //Putting into the intial map
 
     for(unsigned int speech = 0; speech < parts.size(); speech++)
     {
         multimap<int,string, greater <int>> finalMap;
-        vector<string> topThree = {"N/A", "N/A", "N/A"};
-        string grammarTitle = parts[speech];
+        vector<string> topThree = {"N/A", "N/A", "N/A"};//"Empty"
+        string grammarTitle = parts[speech]; //Part of Speech
         for(auto outerLoop: speechPosWords)
         {
             //If the partofSpeech is the same as the one in the map
@@ -380,7 +397,6 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
                     finalMap.insert(pair<int,string>(iter.second,iter.first));
                 }
             }
-
         }
         //Gets the Top three if there are three, otherwise put in as many as can
             multimap<int,string, greater <int>>::iterator iter = finalMap.begin();
@@ -405,6 +421,7 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
     threeN = threeN + '\n';
     output.push_back(threeN);
 
+    //Negative three word method
     for(unsigned int speech = 0; speech < parts.size(); speech++)
     {
         multimap<int,string, greater <int>> finalMap;
@@ -423,7 +440,6 @@ void Reader::calculateStatistics(vector<User> & users, vector<string> & output)
                     finalMap.insert(pair<int,string>(iter.second,iter.first));
                 }
             }
-
         }
         //Gets the Top three if there are three, otherwise less than three
             multimap<int,string, greater <int>>::iterator iter = finalMap.begin();

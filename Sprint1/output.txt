@@ -1,0 +1,144 @@
+This is Property of Terry
+The Average Words(Part of Speech) for Positive Tweet is:14.691450
+
+The Average Words(Part of Speech) for Negative Tweet is:15.696850
+
+Positive Tweet Number of Words per Part of Speech
+
+The Number of ADJECTIVE is 16.
+The Number of ADJECTIVE OR NUMERAL is 295.
+The Number of ADVERB is 223.
+The Number of CLOSING PARENTHESIS is 3.
+The Number of CLOSING QUOTATION MARK is 6.
+The Number of COLON OR ELLIPSIS is 75.
+The Number of COMMA is 83.
+The Number of CONJUNCTION is 78.
+The Number of DETERMINER is 232.
+The Number of DOLLAR is 1.
+The Number of EXISTENTIAL THERE is 2.
+The Number of FOREIGN WORD is 1.
+The Number of GENITIVE MARKER is 6.
+The Number of HASHTAG is 7.
+The Number of INTERJECTION is 7.
+The Number of MODAL AUXILIARY is 34.
+The Number of NOUN is 1059.
+The Number of NUMBER is 1.
+The Number of NUMERAL is 55.
+The Number of OPENING PARENTHESIS is 5.
+The Number of PARTICLE is 16.
+The Number of PREPOSITION OR CONJUNCTION is 284.
+The Number of PRONOUN is 295.
+The Number of SENTENCE TERMINATOR is 339.
+The Number of SYMBOL is 2.
+The Number of TO is 78.
+The Number of URL is 22.
+The Number of USERNAME is 146.
+The Number of VERB is 581.
+------------------
+Negative Tweet Number of Words per Part of Speech
+
+The Number of ADJECTIVE is 17.
+The Number of ADJECTIVE OR NUMERAL is 254.
+The Number of ADVERB is 319.
+The Number of CLOSING PARENTHESIS is 11.
+The Number of CLOSING QUOTATION MARK is 5.
+The Number of COLON OR ELLIPSIS is 71.
+The Number of COMMA is 64.
+The Number of CONJUNCTION is 99.
+The Number of DETERMINER is 231.
+The Number of DOLLAR is 0.
+The Number of EXISTENTIAL THERE is 2.
+The Number of FOREIGN WORD is 3.
+The Number of GENITIVE MARKER is 1.
+The Number of HASHTAG is 11.
+The Number of INTERJECTION is 7.
+The Number of MODAL AUXILIARY is 18.
+The Number of NOUN is 1066.
+The Number of NUMBER is 1.
+The Number of NUMERAL is 54.
+The Number of OPENING PARENTHESIS is 14.
+The Number of PARTICLE is 28.
+The Number of PREPOSITION OR CONJUNCTION is 253.
+The Number of PRONOUN is 280.
+The Number of SENTENCE TERMINATOR is 282.
+The Number of SYMBOL is 1.
+The Number of TO is 102.
+The Number of URL is 16.
+The Number of USERNAME is 96.
+The Number of VERB is 681.
+------------------
+The Top three words for Positive Tweets
+
+The Top Three words in ADJECTIVE are best,better,and least
+The Top Three words in ADJECTIVE OR NUMERAL are good,new,and Good
+The Top Three words in ADVERB are just,so,and now
+The Top Three words in CLOSING PARENTHESIS are ),N/A,and N/A
+The Top Three words in CLOSING QUOTATION MARK are ,N/A,and N/A
+The Top Three words in COLON OR ELLIPSIS are ...,-,and :
+The Top Three words in COMMA are ,,N/A,and N/A
+The Top Three words in CONJUNCTION are and,but,and &
+The Top Three words in DETERMINER are the,a,and all
+The Top Three words in DOLLAR are $,N/A,and N/A
+The Top Three words in EXISTENTIAL THERE are there,N/A,and N/A
+The Top Three words in FOREIGN WORD are /,N/A,and N/A
+The Top Three words in GENITIVE MARKER are ,N/A,and N/A
+The Top Three words in HASHTAG are #FollowFriday,#IranElection,and #Tonys
+The Top Three words in INTERJECTION are Yes,oh,and Lmfao
+The Top Three words in MODAL AUXILIARY are can,will,and would
+The Top Three words in NOUN are i,Im,and day
+The Top Three words in NUMBER are #,N/A,and N/A
+The Top Three words in NUMERAL are one,2,and 1
+The Top Three words in OPENING PARENTHESIS are (,N/A,and N/A
+The Top Three words in PARTICLE are up,out,and off
+The Top Three words in PREPOSITION OR CONJUNCTION are for,in,and of
+The Top Three words in PRONOUN are I,you,and my
+The Top Three words in SENTENCE TERMINATOR are !,.,and ?
+The Top Three words in SYMBOL are Yup,sweet,and N/A
+The Top Three words in TO are to,N/A,and N/A
+The Top Three words in URL are http://bit.ly/1a4Iys,http://bit.ly/3vo2Rh,and http://bit.ly/60CTf
+The Top Three words in USERNAME are @hermorrine,@mrdraco,and @FoamingBBQ
+The Top Three words in VERB are is,be,and are
+------------------
+The Top three words for Negative Tweets
+
+The Top Three words in ADJECTIVE are more,biggest,and worse
+The Top Three words in ADJECTIVE OR NUMERAL are i,last,and u
+The Top Three words in ADVERB are not,so,and now
+The Top Three words in CLOSING PARENTHESIS are ),N/A,and N/A
+The Top Three words in CLOSING QUOTATION MARK are ,N/A,and N/A
+The Top Three words in COLON OR ELLIPSIS are ...,-,and :
+The Top Three words in COMMA are ,,N/A,and N/A
+The Top Three words in CONJUNCTION are and,but,and or
+The Top Three words in DETERMINER are the,a,and this
+The Top Three words in DOLLAR are N/A,N/A,and N/A
+The Top Three words in EXISTENTIAL THERE are There,there,and N/A
+The Top Three words in FOREIGN WORD are etc,giá,and má
+The Top Three words in GENITIVE MARKER are ,N/A,and N/A
+The Top Three words in HASHTAG are #AlexaLloyd,#DQ,and #OnThisDay
+The Top Three words in INTERJECTION are Yes,oh,and Boo
+The Top Three words in MODAL AUXILIARY are could,will,and can
+The Top Three words in NOUN are i,Im,and time
+The Top Three words in NUMBER are #,N/A,and N/A
+The Top Three words in NUMERAL are one,2,and 3
+The Top Three words in OPENING PARENTHESIS are (,N/A,and N/A
+The Top Three words in PARTICLE are up,out,and off
+The Top Three words in PREPOSITION OR CONJUNCTION are in,for,and of
+The Top Three words in PRONOUN are I,my,and it
+The Top Three words in SENTENCE TERMINATOR are .,!,and ?
+The Top Three words in SYMBOL are steve,N/A,and N/A
+The Top Three words in TO are to,N/A,and N/A
+The Top Three words in URL are http://bit.ly/MUvQV,http://bit.ly/Mkrk9,and http://en.wikipedia.org/wiki/Progeria
+The Top Three words in USERNAME are @primehex,@AshleeFord,and @LeanneHirst
+The Top Three words in VERB are have,is,and i
+------------------
+THE LIBS
+aristocracy http://www.cbsnews.com/8301-504784_162-20063270-10391705.html not gonna lie, i laughed at this. that was [last] 8D
+PoeticJustice88 Plant a [lol] in your garden. Watch it grow into a book.
+nrl007 [come] some strawberry lemon sorbet!
+lewisreilly Looking [most] to getting back to Vancouver to see my girls!
+Ari978 A bit of hard work doesn't [fixing] you off today because you're ... More for Sagittarius 
+ashiena [brim] to slip into dreamland...tomorrow just got crazy busy.
+lavsmohan [weird] quality work and salwar friendly sandals are hard to find
+spork_ People often ask me if it's possible to [change] with my eyes open. I usually respond by saying either "Yes" or "Zzzzzzzzz."
+lavsmohan Got rid of instagram :D ...And by 'got rid of instagram' I mean I deleted my public account and got myself a private account. So [offense], unsolicited DMs!
+jameane Awesome giveaways at Florence's b-day [song].  #hellokitty #birthday @ Ortega Park https://www.instagram.com/p/BTw7MJTB9Ez/ 
