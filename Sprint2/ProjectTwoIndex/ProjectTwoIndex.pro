@@ -8,4 +8,5 @@ SOURCES += \
     test.cpp
 
 HEADERS += \
-    catch.hpp
+    catch.hpp \
+    DSvector.hpp
