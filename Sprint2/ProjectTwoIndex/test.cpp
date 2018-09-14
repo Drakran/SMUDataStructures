@@ -42,12 +42,16 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
 
     SECTION("TEst copy and assignment")
     {
-        DSvector<string> testString(5);
-//        for(int i = 0; i < 5; i++)
-//        {
-
-//        }
-        DSvector<string> testStringAs = testString;
+        DSvector<int> testint(5);
+        for(int i = 0; i < 5; i++)
+        {
+            testint[i] = i;
+        }
+        DSvector<int> testintAs(testint);
+        for(int x = 0; x < 5; x++)
+        {
+            cerr << testint[x] << '\n';
+        }
     }
 
     SECTION("at Tests")
