@@ -43,6 +43,10 @@ DSvector<T>::DSvector()
     size = 0;
     capacity = 10; //Default Capacity of 10
     data = new T[10];
+    for(int x = 0; x < 10; x++)
+    {
+        data[x]= '\0';
+    }
 }
 
 //Full Constructor
@@ -55,7 +59,12 @@ DSvector<T>::DSvector(int initCap)
     }
     size = initCap;
     capacity = initCap;
-    data =  new T[capacity];
+    data =  new T[capacity]; //'0' terminators put it all in
+    for(int x = 0; x < initCap; x++)
+    {
+        data[x]= '\0';
+    }
+
 }
 
 //Copy Consustructor
@@ -192,7 +201,7 @@ void DSvector<T>::pop_back()
 {
    if(size > 0)
    {
-       size--;
+       size--; //'\0' append
    }
    else
    {
