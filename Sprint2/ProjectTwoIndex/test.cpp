@@ -12,8 +12,8 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
     SECTION("Int Tests")
     {
         DSvector<int> testDefault;
-//        DSvector<int> sizeBelowZero(-1);
-//        CHECK_THROWS_AS(sizeBelowZero, logic_error);
+        //DSvector<int> sizeBelowZero(-1);
+        //CHECK_THROWS_AS(DSvector<int> belowZero(-1), logic_error);
         DSvector<int> testInt(0);
         DSvector<int> testInt2(5);
         testInt2[0] = 5;
@@ -58,6 +58,25 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
     {
         DSvector<std::string> testAt(3);
         REQUIRE_THROWS_AS(testAt.at(4), logic_error);
+    }
+
+    SECTION("put_back")
+    {
+        DSvector<std::string> testPut(1);
+        testPut.put_back("One");
+        testPut.put_back("Two");
+        cerr << testPut.getSize() << '\n';
+        testPut.put_back("Three - Increase cap by 2");
+        cerr << testPut.getSize() << '\n';
+    }
+
+    SECTION("Front and Back")
+    {
+        DSvector<std::string> v(1);
+        CHECK_THROWS_AS(v.front(), logic_error);
+        CHECK_THROWS_AS(v.back(), logic_error);
+        v.put_back("First");
+
     }
 
 }
