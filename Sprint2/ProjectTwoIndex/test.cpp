@@ -1,4 +1,4 @@
-#define CATCH_CONFIG_MAIN
+
 #include "catch.hpp"
 #include "DSvector.hpp"
 #include <string>
@@ -44,19 +44,19 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
     SECTION("TEst copy and assignment")
     {
         DSvector<int> testint(5);
-//        for(int i = 0; i < 5; i++)
-//        {
-//            testint[i] = i;
-//        }
-//        DSvector<int> testintAs(testint);
-//        for(int x = 0; x < 5; x++)
-//        {
-//            REQUIRE(testint[x] == x);
-//        }
-        for(int i = 0; i < testint.getSize(); i++)
+        for(int i = 0; i < 5; i++)
         {
-            cerr << testint[i] << '\n';
+            testint[i] = i;
         }
+        DSvector<int> testintAs(testint);
+        for(int x = 0; x < 5; x++)
+        {
+            REQUIRE(testint[x] == x);
+        }
+//        for(int i = 0; i < testint.getSize(); i++)
+//        {
+//            cerr << testint[i] << '\n';
+//        }
     }
 
     SECTION("at Tests")

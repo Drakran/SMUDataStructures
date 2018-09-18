@@ -1,9 +1,23 @@
-//#include <iostream>
 
-//using namespace std;
+#define CATCH_CONFIG_RUNNER
+#include "catch.hpp"
 
-//int main()
-//{
-//    cout << "Testing if this works! - New Branch" << endl;
-//    return 0;
-//}
+
+#define TEST true
+
+
+int runCatchTests(int argc, char* const argv[])
+{
+    return Catch::Session().run();
+}
+
+int main( int argc, char* const argv[] )
+{
+    if (TEST)
+    {
+        return runCatchTests(argc, argv);
+    }
+
+    //start working on other parts of your project here.
+    return 0;
+}
