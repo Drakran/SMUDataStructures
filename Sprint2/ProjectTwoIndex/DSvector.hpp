@@ -13,7 +13,7 @@ private:
     T* data;
     int size; //numElements
     int capacity;
-    void pop_out(T){}
+
     T erase(int){}
     void clear(){}
 public:
@@ -26,10 +26,12 @@ public:
     T& operator[] (int);
 
     int getSize();
-    T front();
-    T back();
+    int getCapacity();
+    T& front();
+    T& back();
     bool isEmpty();
     void put_back(T);
+    void pop_back();
     T at(const int);
 
 };
@@ -51,7 +53,7 @@ DSvector<T>::DSvector(int initCap)
     {
         throw logic_error("Size of vector is below zero");
     }
-    size = 0;
+    size = initCap;
     capacity = initCap;
     data =  new T[capacity];
 }
@@ -71,8 +73,8 @@ DSvector<T>::DSvector(const DSvector& arg)
 template<class T>
 T& DSvector<T>::operator[](int loc)
 {
-//    if(loc > size || loc < 0)
-//        throw logic_error("[] out of bounds");
+    if(loc < 0 || loc > size - 1)
+        throw logic_error("[] out of bounds");
     return data[loc];
 }
 
@@ -95,7 +97,7 @@ DSvector<T>& DSvector<T>::operator=(const DSvector& arg)
     this -> size = arg.size;
     this -> capacity = arg.capacity;
     data = new T[capacity];
-    for(int x = 0; x < size; x++)
+    for(int x = 0; x < size ; x++)
         this -> data[x] = arg.data[x];
     return *this;
 }
@@ -114,9 +116,16 @@ int DSvector<T>::getSize()
     return size;
 }
 
+//Get capacity
+template<class T>
+int DSvector<T>::getCapacity()
+{
+    return capacity;
+}
+
 //Front - Gets first Element
 template<class T>
-T DSvector<T>::front()
+T& DSvector<T>::front()
 {
     if(size > 0)
     {
@@ -128,7 +137,7 @@ T DSvector<T>::front()
 
 //Back - Gets last element
 template<class T>
-T DSvector<T>::back()
+T& DSvector<T>::back()
 {
     if(size > 0)
     {
@@ -136,6 +145,20 @@ T DSvector<T>::back()
     }
     else
         throw logic_error("Back - Vector is empty");
+}
+
+//IsEmpty
+template<class T>
+bool DSvector<T>::isEmpty()
+{
+    if(size == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 /*Put_back inserts an element at the end of the
  * vector. If size is the same as capacity, then
@@ -149,6 +172,8 @@ void DSvector<T>::put_back(T val)
 {
     if(capacity == size)
     {
+        if(capacity == 0)
+            capacity = 1;
         T* temp = new T[capacity * 2]; //Two is standard
         for(int x = 0; x< size; x++)
         {
@@ -159,6 +184,20 @@ void DSvector<T>::put_back(T val)
         data = temp;
     }
     data[size++] = val; //Will increment after
+}
+//Popback
+//Destroys the last element in the vector
+template<class T>
+void DSvector<T>::pop_back()
+{
+   if(size > 0)
+   {
+       size--;
+   }
+   else
+   {
+       throw logic_error("popback vector is empty");
+   }
 }
 
 //Returns element at location
