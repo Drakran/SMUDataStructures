@@ -25,7 +25,6 @@ private:
     int capacity;
 
     T erase(int){}
-    void clear(){}
 public:
     DSvector();
     DSvector(int);
@@ -42,6 +41,7 @@ public:
     bool isEmpty();
     void put_back(T);
     void pop_back();
+    void clear();
     T at(const int);
 
 };
@@ -217,6 +217,13 @@ void DSvector<T>::pop_back()
    {
        throw logic_error("popback vector is empty");
    }
+}
+
+//Clears the vector
+template<class T>
+void DSvector<T>::clear()
+{
+    size = 0;
 }
 
 //Returns element at location

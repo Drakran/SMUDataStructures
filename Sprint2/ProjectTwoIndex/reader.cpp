@@ -10,7 +10,7 @@ Reader::Reader(string inputFile, string outputFile)
     output = outputFile;
 }
 
-void Reader::getData()
+void Reader::getData(DSvector<Page>& pages)
 {
     ifstream file;
     file.open(input);
@@ -23,12 +23,12 @@ void Reader::getData()
     //test
     char cha;
     char garbage;
-    int page;
+    int page = 0;
     bool end = false;
     file.get(cha); //Makes sure that the check below works
     while(file.good())
     {
-
+        DSvector<string> tempWords;
         if(cha == '<')
         {
             string tempPageNum;
@@ -48,8 +48,8 @@ void Reader::getData()
         file.get(cha); //First line
         while(cha != '<' && end == false)
         {
+
             string word;//Word to push back into a vector of all words for that page
-            //int count = 0;
             if(cha == '[')
             {
                 file.get(cha);//removes the [
@@ -69,17 +69,17 @@ void Reader::getData()
                     file.get(cha);
                 }
             }
-
+            transform(word.begin(),word.end(),word.begin(),::tolower); //toLowercase
             cout << word << '\n';
-           // cout << "End of loop before" << cha << '\n';
+            tempWords.put_back(word);
             file.get(cha);
-           // cout << "END OF LOOP CHA" << cha << '\n';
         }
-        //file.ignore(256, '>');
-//        file.get(cha);
-//        cout << cha;
-//    file.get(cha);
+        Page temp = Page(page,tempWords);
+        pages.put_back(temp);
+        tempWords.clear();
     }
+
+
 
 
 }

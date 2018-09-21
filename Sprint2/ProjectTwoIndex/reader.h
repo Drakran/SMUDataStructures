@@ -1,6 +1,7 @@
 #ifndef READER_H
 #define READER_H
 
+#include "page.h"
 #include <string>
 #include <algorithm>
 #include <fstream>
@@ -14,7 +15,7 @@ private:
     std::string output;
 public:
     Reader(std::string, std::string);
-    void getData();
+    void getData(DSvector<Page>&);
 };
 
 #endif // READER_H

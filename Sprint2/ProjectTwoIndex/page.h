@@ -7,10 +7,11 @@
 class Page
 {
 private:
-    std::string num;
+    int num;
     DSvector<std::string> words;
 public:
-    Page(std::string, DSvector<std::string>);
+    Page(int, DSvector<std::string>);
+    DSvector<std::string>& getWords();
 };
 
 #endif // PAGE_H

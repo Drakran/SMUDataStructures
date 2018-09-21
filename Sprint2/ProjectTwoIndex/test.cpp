@@ -111,6 +111,13 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
         CHECK_THROWS_AS(v[-1], logic_error);
     }
 
+    SECTION("Clear method")
+    {
+        DSvector<int> v(10);
+        v.clear();
+        REQUIRE(v.getSize() == 0);
+    }
+
     SECTION("test copy and assignment")
     {
         DSvector<string> v;
