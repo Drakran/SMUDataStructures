@@ -70,11 +70,15 @@ void Reader::getData(DSvector<Page>& pages)
                 }
             }
             transform(word.begin(),word.end(),word.begin(),::tolower); //toLowercase
-            cout << word << '\n';
+            //cout << word << '\n';
             tempWords.put_back(word);
             file.get(cha);
         }
         Page temp = Page(page,tempWords);
+//        for(int x = 0; x < tempWords.getSize(); x++)
+//        {
+//            cout << tempWords[x] << '\n';
+//        }
         pages.put_back(temp);
         tempWords.clear();
     }

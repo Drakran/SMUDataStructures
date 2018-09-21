@@ -10,6 +10,7 @@ private:
     int num;
     DSvector<std::string> words;
 public:
+    Page();
     Page(int, DSvector<std::string>);
     DSvector<std::string>& getWords();
 };
