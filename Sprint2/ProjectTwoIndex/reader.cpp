@@ -25,4 +25,6 @@ void Reader::getData()
         getline(file,line);
         cout << line << '\n';
     }
+
+
 }

@@ -14,7 +14,7 @@ int runCatchTests()
 
 int main( int argc, char* const argv[] )
 {
-    if (TEST)
+    if (strcmp(argv[1], "-t") == 0)
     {
         return runCatchTests();
     }
@@ -22,9 +22,12 @@ int main( int argc, char* const argv[] )
 //    {
 //        std::cout << argv[x] << '\n';
 //    }
+    else if(strcmp(argv[1], "-r") == 0)
+    {
+        Reader scanner(argv[2],argv[3]);
+        scanner.getData();
+    }
 
-    Reader scanner(argv[3],argv[4]);
-    scanner.getData();
     //start working on other parts of your project here.
     return 0;
 }

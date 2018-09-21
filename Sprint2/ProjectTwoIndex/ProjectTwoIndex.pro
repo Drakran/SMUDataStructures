@@ -6,9 +6,11 @@ CONFIG -= qt
 SOURCES += \
         main.cpp \
     test.cpp \
-    reader.cpp
+    reader.cpp \
+    page.cpp
 
 HEADERS += \
     catch.hpp \
     DSvector.hpp \
-    reader.h
+    reader.h \
+    page.h
