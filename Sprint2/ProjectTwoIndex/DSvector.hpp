@@ -1,3 +1,13 @@
+/* The DSvector class creates a container much like a vector
+ * with dynamically allocated memory that grows to match the number
+ * of elements
+ *
+ * Terry Wang
+ *
+ * September 21st, 2018
+ *
+ */
+
 #ifndef DSVECTOR_H
 #define DSVECTOR_H
 

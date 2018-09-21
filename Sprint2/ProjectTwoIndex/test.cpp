@@ -44,19 +44,26 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
     SECTION("TEst copy and assignment")
     {
         DSvector<int> testint(5);
-//        for(int i = 0; i < 5; i++)
-//        {
-//            testint[i] = i;
-//        }
-//        DSvector<int> testintAs(testint);
-//        for(int x = 0; x < 5; x++)
-//        {
-//            REQUIRE(testint[x] == x);
-//        }
-        for(int i = 0; i < testint.getSize(); i++)
+        for(int i = 0; i < 5; i++)
         {
-            cerr << testint[i] << '\n';
+            testint[i] = i;
         }
+        DSvector<int> testintAs(testint);
+        for(int x = 0; x < 5; x++)
+        {
+            REQUIRE(testint[x] == x);
+        }
+//        for(int i = 0; i < testint.getSize(); i++)
+//        {
+//            cerr << testint[i] << '\n';
+//        }
+//        DSvector<string> testString(5);
+//        for(int i = 0; i < testString.getSize(); i++)
+//        {
+//            //if(testi)
+//            cerr << testString[i] << '\n';
+//        }
+
     }
 
     SECTION("at Tests")
@@ -72,12 +79,12 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
         REQUIRE(emptyString[0] == "First");
         DSvector<std::string> testPut(1);
         testPut.put_back("One");
-        cerr << testPut.getCapacity() << '\n';
+        //cerr << testPut.getCapacity() << '\n';
         testPut.put_back("Two");
-         cerr << testPut.getCapacity() << '\n';
+         //cerr << testPut.getCapacity() << '\n';
         REQUIRE(testPut.getSize() == 3);
         testPut.put_back("Three - Increase cap by 2");
-         cerr << testPut.getCapacity() << '\n';
+         //cerr << testPut.getCapacity() << '\n';
         REQUIRE(testPut.getSize() == 4);
 
         testPut.pop_back();

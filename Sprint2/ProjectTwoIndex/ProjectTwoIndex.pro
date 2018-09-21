@@ -5,8 +5,10 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-    test.cpp
+    test.cpp \
+    reader.cpp
 
 HEADERS += \
     catch.hpp \
-    DSvector.hpp
+    DSvector.hpp \
+    reader.h
