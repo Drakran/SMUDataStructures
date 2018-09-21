@@ -41,7 +41,7 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
 
     }
 
-    SECTION("TEst copy and assignment")
+    SECTION("Test Empty []")
     {
         DSvector<int> testint(5);
         for(int i = 0; i < 5; i++)
@@ -109,6 +109,16 @@ TEST_CASE("Testing dsvectrs", "[dsvectors]")
     {
         DSvector<int> v(0);
         CHECK_THROWS_AS(v[-1], logic_error);
+    }
+
+    SECTION("test copy and assignment")
+    {
+        DSvector<string> v;
+        v.put_back("Hi");
+        DSvector<string> vCopy(v);
+        REQUIRE(vCopy[0] == "Hi");
+        DSvector<string> empty = v;
+        REQUIRE(empty[0] == "Hi");
     }
 
 }
