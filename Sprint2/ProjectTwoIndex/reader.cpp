@@ -18,7 +18,7 @@ void Reader::getData()
         cerr << "Error, file not opening mate" << '\n';
         exit(EXIT_FAILURE);
     }
-
+    //test
     string line;
     while(file.good())
     {
