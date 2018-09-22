@@ -81,7 +81,11 @@ DSvector<T>::DSvector(const DSvector& arg)
         this -> data[x] = arg.data[x];
 }
 
-//[] operator
+/* [] operator
+ * @param loc is the location needed
+ * @return the class type referenced
+ */
+
 template<class T>
 T& DSvector<T>::operator[](int loc)
 {
@@ -90,7 +94,10 @@ T& DSvector<T>::operator[](int loc)
     return data[loc];
 }
 
-//Assignment Operator
+/*Assignment Operator for t1 = t2
+ * @param arg is the argument that the data will be taken from
+ * @return is vector that was changed to match the argument
+ */
 template<class T>
 DSvector<T>& DSvector<T>::operator=(const DSvector& arg)
 {
@@ -172,6 +179,7 @@ bool DSvector<T>::isEmpty()
         return false;
     }
 }
+
 /*Put_back inserts an element at the end of the
  * vector. If size is the same as capacity, then
  * the method doubles the vector capacity and stores
@@ -197,6 +205,7 @@ void DSvector<T>::put_back(T val)
     }
     data[size++] = val; //Will increment after
 }
+
 //Popback
 //Destroys the last element in the vector
 template<class T>

@@ -30,15 +30,15 @@ int main( int argc, char* const argv[] )
 //        {
 //            cout << moreTemp[z] << '\n';
 //        }
-        cout << "Size" <<  pages.getSize() << '\n';
-        for(int x = 0; x < pages.getSize(); x++)
-        {
-            DSvector<std::string> temp = pages[x].getWords();
-            for(int y = 0; y < temp.getSize(); y++)
-            {
-                cout << temp[y] << '\n';
-            }
-        }
+//        cout << "Size" <<  pages.getSize() << '\n';
+//        for(int x = 0; x < pages.getSize(); x++)
+//        {
+//            DSvector<std::string> temp = pages[x].getWords();
+//            for(int y = 0; y < temp.getSize(); y++)
+//            {
+//                cout << temp[y] << '\n';
+//            }
+//        }
     }
 
     for(int x = 0; x < argc; x++)

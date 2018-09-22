@@ -1,3 +1,11 @@
+/* The test class tests things (what do you know)
+ * It tests the creation of the DSvector with both
+ * ints(primitve) and strings(objects technically)
+ *
+ * Terry Wang
+ *
+ * September 22nd, 2018
+ */
 
 #include "catch.hpp"
 #include "DSvector.hpp"
