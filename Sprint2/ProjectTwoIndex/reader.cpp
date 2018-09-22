@@ -109,9 +109,150 @@ void Reader::getData(DSvector<Page>& pages)
 
         tempWords.clear();
     }
+    file.close();
 }
 
+/* sortData collects all the words into a vector and matches then up with
+ * a pagenumber, storing that into a Word Vector for FINAL PROCESSING
+ * @param pages the vector with all the pages
+ * @words the vector that contains the final sorted words
+ */
 void Reader::sortData(DSvector<Page>& pages, DSvector<Word>& words)
 {
+    DSvector<string> allWords; //Has all the words
+    try
+    {
+        for(int x = 0; x < pages.getSize(); x++)
+        {
+            DSvector<string> tempWords = pages[x].getWords();
+            for(int y = 0; y < tempWords.getSize(); y++){
+                allWords.put_back(tempWords[y]);
+            }
+        }
+    } catch (const exception& e)
+    {
+        cerr << "Error reading in allWords" << e.what();
+    }
 
+    rmvDuplicate(allWords);
+    allWords.sort();
+    for(int x = 0; x < allWords.getSize(); x++)
+    {
+        string compare = allWords[x];
+        words.put_back(matchPageWord(pages,compare));
+    }
+
+//    for(int z =0; z < words.getSize(); z++)
+//    {
+//        cout << words[z].getWord();
+//        for(int x =0; x < (words[z].getPageNums()).getSize(); x++)
+//        {
+//            cout << (words[z].getPageNums())[x] << " ";
+//        }
+//        cout << '\n';
+//    }
+}
+
+
+/*rmv Duplicate removes all dupliactes in the vector that contains all the strings
+ * @param word which is the word vector with all the words possible
+ */
+void Reader::rmvDuplicate(DSvector<string>& word)
+{
+    int x,y;
+    string check; //Word to be checked
+    for(x = 0; x < word.getSize(); x++)
+    {
+        check = word[x];
+        for(y = x + 1; y <word.getSize(); y++)
+        {
+            if(check.compare(word[y]) == 0)
+            {
+                word.erase(y);
+                y--; //SO don't skip elements
+            }
+        }
+    }
+}
+
+/* matchPageword matches the words to the pages, while
+ * also dealing with multiple pages to one words and
+ * duplicate words
+ * @param pages the page vector
+ * @param cmp the string that all the pages are being mapped too
+ * @return finished is the final word with a vector of ints containing the
+ * page number
+ */
+Word Reader::matchPageWord(DSvector<Page>& pages, string cmp)
+{
+    DSvector<int> tempNums;
+    for(int x = 0; x < pages.getSize(); x++)
+    {
+        DSvector<string> compareWord = pages[x].getWords();
+        for(int y = 0; y < compareWord.getSize(); y++)
+        {
+            //If the word matches a word on the page
+            if(cmp.compare(compareWord[y]) == 0)
+            {
+                int pageNum = pages[x].getPageNum();
+                if(!tempNums.isEmpty())
+                {
+                    for(int j = 0; j < tempNums.getSize(); j++)
+                    {
+                        if(pageNum != tempNums[j])
+                        {
+                            tempNums.put_back(pageNum);
+                        }
+                    }
+                }
+                else
+                {
+                    tempNums.put_back(pageNum);
+                }
+            }
+        }
+    }
+    tempNums.sort();
+    Word finished(cmp,tempNums);
+    return finished;
+}
+
+/* The printOutput method makes the header and prints everything out
+ * @param words the vector containing the finished words
+ */
+void Reader::printOutput(DSvector<Word>& words)
+{
+    ofstream outFile;
+    outFile.open(output);
+    DSvector<string> headers; //Temp vector for all the headers
+    for(int x = 0; x < words.getSize(); x++)
+    {
+        string temp = words[x].getWord();
+        string header = temp.substr(0,1);
+        headers.put_back(header);
+    }
+    rmvDuplicate(headers);
+    for(int x = 0; x < headers.getSize(); x++)
+    {
+        string head = headers[x];
+        outFile << "[" << head << "]" << '\n';
+        //Go through through the word array
+        for(int i = 0; i < words.getSize(); i++)
+        {
+            string word = words[i].getWord();
+            //If the word starts with the header print
+            if(word.substr(0,1) == head)
+            {
+                outFile << word << ": ";
+                //Prints out the page nums
+                for(int y = 0; y < words[i].getPageNums().getSize(); y++)
+                {
+                    outFile << words[i].getPageNums()[y];
+//                    if(iter = )
+                }
+                outFile << '\n';
+            }
+        }
+    }
+    outFile.close();
 }

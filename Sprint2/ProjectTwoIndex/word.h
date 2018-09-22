@@ -1,6 +1,10 @@
 /*
  * The Word Class creates the final word that has the word
  * and the page numbers in a vector of ints ready to be printed out
+ *
+ * Terry Wang
+ *
+ * September 22nd, 2018
  */
 
 #ifndef WORD_H
@@ -18,6 +22,8 @@ private:
 public:
     Word();
     Word(std::string, DSvector<int>);
+    DSvector<int>& getPageNums();
+    std::string getWord();
 };
 
 #endif // WORD_H

@@ -22,6 +22,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <iterator>
 #include "word.h"
 
 class Reader
@@ -33,6 +34,9 @@ public:
     Reader(std::string, std::string);
     void getData(DSvector<Page>&);
     void sortData(DSvector<Page>&, DSvector<Word>&);
+    void rmvDuplicate(DSvector<string>&);
+    Word matchPageWord(DSvector<Page>&, string);
+    void printOutput(DSvector<Word>&);
 };
 
 #endif // READER_H

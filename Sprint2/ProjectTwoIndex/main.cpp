@@ -27,21 +27,22 @@ int main( int argc, char* const argv[] )
         Reader scanner(argv[2],argv[3]);
         scanner.getData(pages);
         DSvector<Word> words;
-//        scanner.sortData(pages,words);
+        scanner.sortData(pages,words);
+        scanner.printOutput(words);
 //        DSvector<std::string> moreTemp = pages[0].getWords();
 //        for(int z = 0; z < moreTemp.getSize(); z++)
 //        {
 //            cout << moreTemp[z] << '\n';
 //        }
 //        cout << "Size" <<  pages.getSize() << '\n';
-        for(int x = 0; x < pages.getSize(); x++)
-        {
-            DSvector<std::string> temp = pages[x].getWords();
-            for(int y = 0; y < temp.getSize(); y++)
-            {
-                cout << temp[y] << '\n';
-            }
-        }
+//        for(int x = 0; x < pages.getSize(); x++)
+//        {
+//            DSvector<std::string> temp = pages[x].getWords();
+//            for(int y = 0; y < temp.getSize(); y++)
+//            {
+//                cout << temp[y] << '\n';
+//            }
+//        }
     }
 
 //    for(int x = 0; x < argc; x++)
