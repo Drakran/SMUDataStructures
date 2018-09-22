@@ -236,7 +236,7 @@ void Reader::printOutput(DSvector<Word>& words)
                     {
                         if(y == words[i].getPageNums().getSize() -1)
                             break;
-                        outFile << ",";
+                        outFile << ", ";
                     }
                 }
                 outFile << '\n';
