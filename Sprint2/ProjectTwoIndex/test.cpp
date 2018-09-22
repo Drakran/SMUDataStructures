@@ -142,7 +142,10 @@ TEST_CASE("Testing Int" )
     {
         DSvector<int> testAt(3);
         testAt[0] = 0;
+        testAt[1] = 2;
+        testAt[2] = 3;
         REQUIRE(testAt.at(0) == 0);
+        REQUIRE_THROWS_AS(testAt.at(3), logic_error);
         REQUIRE_THROWS_AS(testAt.at(4), logic_error);
     }
 
@@ -152,6 +155,34 @@ TEST_CASE("Testing Int" )
         v.clear();
         REQUIRE(v.getSize() == 0);
     }
+
+    SECTION("ERASE")
+    {
+        DSvector<int> testAt(3);
+        testAt[0] = 0;
+        testAt[1] = 2;
+        testAt[2] = 3;
+        testAt.erase(1);
+        REQUIRE_THROWS_AS(testAt.at(2), logic_error);
+        REQUIRE(testAt.getSize() == 2);
+        REQUIRE(testAt[1] == 3);
+    }
+
+    SECTION("Sort and Swap tests")
+    {
+        DSvector<int> swap(3);
+        swap[0] = 8;
+        swap[1] = 2;
+        swap[2] = 6;
+        swap.swap(0,2);
+        REQUIRE(swap[0] == 6);
+        REQUIRE(swap[2] == 8);
+        swap.sort();
+        REQUIRE(swap[0] == 2);
+        REQUIRE(swap[1] == 6);
+        REQUIRE(swap[2] == 8);
+
+    }
 }
 
 TEST_CASE("Testing Strings")
@@ -159,7 +190,7 @@ TEST_CASE("Testing Strings")
     string hi = "hi";
     string one = "one";
     string random = "random";
-    string horde = "FOR THE HORDE";
+    string horde = "horde";
     DSvector<string> testEmpty;
     DSvector<string> testString(5);
 
@@ -287,5 +318,33 @@ TEST_CASE("Testing Strings")
         DSvector<string> v(10);
         v.clear();
         REQUIRE(v.getSize() == 0);
+    }
+
+    SECTION("ERASE")
+    {
+        DSvector<string> testAt(3);
+        testAt[0] = hi;
+        testAt[1] = horde;
+        testAt[2] = random;
+        testAt.erase(1);
+        REQUIRE_THROWS_AS(testAt.at(2), logic_error);
+        REQUIRE(testAt.getSize() == 2);
+        REQUIRE(testAt[1] == random);
+    }
+
+    SECTION("Sort and Swap tests")
+    {
+        DSvector<string> swap(3);
+        swap[0] = hi;
+        swap[1] = horde;
+        swap[2] = random;
+        swap.swap(0,2);
+        REQUIRE(swap[0] == random);
+        REQUIRE(swap[2] == hi);
+        swap.sort();
+        REQUIRE(swap[0] == hi);
+        REQUIRE(swap[1] == horde);
+        REQUIRE(swap[2] == random);
+
     }
 }

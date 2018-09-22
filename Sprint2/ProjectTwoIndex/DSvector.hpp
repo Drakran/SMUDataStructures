@@ -24,7 +24,7 @@ private:
     int size; //numElements
     int capacity;
 
-    T erase(int){}
+
 public:
     DSvector();
     DSvector(int);
@@ -43,6 +43,8 @@ public:
     void pop_back();
     void clear();
     T at(const int);
+    void swap(int,int);
+    void erase(int);
     void sort();
 
 };
@@ -233,16 +235,58 @@ void DSvector<T>::clear()
 template<class T>
 T DSvector<T>::at(int const loc)
 {
-    if(loc > size || loc < 0)
+    if(loc > size - 1 || loc < 0)
     {
-        throw logic_error("Location out of bounds");
+        throw out_of_range("Location out of bounds");
     }
     return data[loc];
 }
 
+//Swaps with element position
+//Used in the sort
+template<class T>
+void DSvector<T>::swap(int x, int y)
+{
+    T temp = data[x];
+    data[x] = data[y];
+    data[y] = temp;
+}
+
+//Erase Method
+template<class T>
+void DSvector<T>::erase(int loc)
+{
+    if(loc > size - 1 || loc < 0)
+        throw out_of_range("Erase - out of bounds");
+    for(int x = loc; x < size - 1; x++)
+    {
+        data[x] = data[x+1];
+    }
+    size--;
+}
+//Sorts with Bubble Sort
 template<class T>
 void DSvector<T>::sort()
 {
+    int x,y;
+    bool swap;
+    for(x = 0; x < size - 1; x++)
+    {
+        swap = false;
+        for(y = 0; y < size - x - 1; y++)
+        {
+           if(data[y] > data[y+1])
+           {
+               this->swap(y,y+1);
+               swap = true;
+           }
+
+        }
+      if(swap == false)
+      {
+          break;
+      }
+    }
 
 }
 
