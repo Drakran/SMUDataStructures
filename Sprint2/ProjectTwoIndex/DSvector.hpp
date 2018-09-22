@@ -67,7 +67,7 @@ DSvector<T>::DSvector(int initCap)
     size = initCap;
     capacity = initCap;
     //'0' terminators put it all in potentially
-    data =  new T[capacity];
+    data = new T[capacity];
 
 }
 
@@ -109,7 +109,7 @@ DSvector<T>& DSvector<T>::operator=(const DSvector& arg)
     }
 
     //Delete data of THIS if there is data
-    if((this -> size) > 0)
+    if((this -> size) >= 0)
     {
         delete[] data;
     }
