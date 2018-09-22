@@ -213,11 +213,14 @@ void Reader::printOutput(DSvector<Word>& words)
         string header = temp.substr(0,1);
         headers.put_back(header);
     }
-    rmvDuplicate(headers);
+    rmvDuplicate(headers); //Removes all the duplicates
+    //Goes through all the headers
     for(int x = 0; x < headers.getSize(); x++)
     {
         string head = headers[x];
-        outFile << "[" << head << "]" << '\n';
+        string headUp = head;
+        transform(headUp.begin(),headUp.end(),headUp.begin(),::toupper);
+        outFile << "[" << headUp << "]" << '\n';
         //Go through through the word array
         for(int i = 0; i < words.getSize(); i++)
         {

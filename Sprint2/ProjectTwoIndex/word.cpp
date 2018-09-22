@@ -22,11 +22,13 @@ Word::Word(string word, DSvector<int> pages)
     this->pages = pages;
 }
 
+//Gets the vector with the pages Nums
 DSvector<int>& Word::getPageNums()
 {
     return pages;
 }
 
+//Gets the word
 string Word::getWord()
 {
     return word;
