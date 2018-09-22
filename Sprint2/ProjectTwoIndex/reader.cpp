@@ -9,8 +9,6 @@
 #include "reader.h"
 #include "DSvector.hpp"
 
-
-
 using namespace std;
 
 Reader::Reader(string inputFile, string outputFile)
@@ -53,7 +51,6 @@ void Reader::getData(DSvector<Page>& pages)
             if(tempPageNum != "-1")
             {
                 page = stoi(tempPageNum); //Converts string to int
-                //cout << "PAGE:" << page << '\n';
                 file.get(garbage); //Flush out the >
             }
             else
@@ -90,15 +87,10 @@ void Reader::getData(DSvector<Page>& pages)
             }
             transform(word.begin(),word.end(),word.begin(),::tolower); //toLowercase
             word.erase(remove_if(word.begin() ,word.end() , ::ispunct), word.end());
-            //cout << word << '\n';
             tempWords.put_back(word);//puts the completed word
             file.get(cha);
         }
         Page temp = Page(page,tempWords);//Creates temp objects of Page
-//        for(int x = 0; x < tempWords.getSize(); x++)
-//        {
-//            cout << tempWords[x] << '\n';
-//        }
         try
         {
             pages.put_back(temp);//Put the page into the PAGE Vector
@@ -141,16 +133,6 @@ void Reader::sortData(DSvector<Page>& pages, DSvector<Word>& words)
         string compare = allWords[x];
         words.put_back(matchPageWord(pages,compare));
     }
-
-//    for(int z =0; z < words.getSize(); z++)
-//    {
-//        cout << words[z].getWord();
-//        for(int x =0; x < (words[z].getPageNums()).getSize(); x++)
-//        {
-//            cout << (words[z].getPageNums())[x] << " ";
-//        }
-//        cout << '\n';
-//    }
 }
 
 
@@ -244,15 +226,22 @@ void Reader::printOutput(DSvector<Word>& words)
             if(word.substr(0,1) == head)
             {
                 outFile << word << ": ";
-                //Prints out the page nums
                 for(int y = 0; y < words[i].getPageNums().getSize(); y++)
                 {
                     outFile << words[i].getPageNums()[y];
-//                    if(iter = )
+                    if(words[i].getPageNums().getSize() > 1)
+                    {
+                        if(y == words[i].getPageNums().getSize() -1)
+                            break;
+                        outFile << ",";
+                    }
                 }
                 outFile << '\n';
             }
         }
     }
+    cout << "ITS A MASTERPIECE - Terry Wang" << '\n';
+    cout << "                      -Abraham Lincoln" << '\n';
+    cout << "                        -Michael Scott" << '\n';
     outFile.close();
 }
