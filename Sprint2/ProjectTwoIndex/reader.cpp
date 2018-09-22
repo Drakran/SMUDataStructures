@@ -10,6 +10,7 @@
 #include "DSvector.hpp"
 
 
+
 using namespace std;
 
 Reader::Reader(string inputFile, string outputFile)
@@ -18,6 +19,12 @@ Reader::Reader(string inputFile, string outputFile)
     output = outputFile;
 }
 
+/* getData opens the input file and then pharses
+ * out each string from each page given and
+ * creates a page before sending the page to the
+ * page vector
+ * @param pages the page vector
+ */
 void Reader::getData(DSvector<Page>& pages)
 {
     ifstream file;
@@ -32,11 +39,13 @@ void Reader::getData(DSvector<Page>& pages)
     char cha;
     char garbage;
     int page = 0;
-    bool end = false;
+    bool end = false; //If false, <-1> hasn't been reached
     file.get(cha); //Makes sure that the check below works
     while(file.good())
     {
         DSvector<string> tempWords;
+        //Used to get the page number by comparing with the < in front of
+        //every page number
         if(cha == '<')
         {
             string tempPageNum;
@@ -49,15 +58,16 @@ void Reader::getData(DSvector<Page>& pages)
             }
             else
             {
-                end = true;
-                cout << "END SUCESS";
+                end = true; //-1 has been reached
             }
         }
-        file.get(cha); //First line
+        file.get(cha); //First char so it can be compared
+        //Goes on until a new page number is reached "<"
         while(cha != '<' && end == false)
         {
-
-            string word;//Word to push back into a vector of all words for that page
+            //Word to push back into a vector of all words for that page
+            string word;
+            //If its a phrase, append each char till]
             if(cha == '[')
             {
                 file.get(cha);//removes the [
@@ -66,8 +76,9 @@ void Reader::getData(DSvector<Page>& pages)
                     word += cha;
                     file.get(cha);
                 }
-                file.get(garbage); //should be the space
+                file.get(garbage); //should be the space or '\n
             }
+            //If its not a phrase but a regular word do this
             else
             {
                 while(cha != ' ' && cha != '\n')
@@ -78,8 +89,9 @@ void Reader::getData(DSvector<Page>& pages)
                 }
             }
             transform(word.begin(),word.end(),word.begin(),::tolower); //toLowercase
+            word.erase(remove_if(word.begin() ,word.end() , ::ispunct), word.end());
             //cout << word << '\n';
-            tempWords.put_back(word);
+            tempWords.put_back(word);//puts the completed word
             file.get(cha);
         }
         Page temp = Page(page,tempWords);//Creates temp objects of Page
@@ -87,11 +99,19 @@ void Reader::getData(DSvector<Page>& pages)
 //        {
 //            cout << tempWords[x] << '\n';
 //        }
-        pages.put_back(temp);
+        try
+        {
+            pages.put_back(temp);//Put the page into the PAGE Vector
+        } catch (const exception& e)
+        {
+            cerr << e.what();
+        }
+
         tempWords.clear();
     }
+}
 
-
-
+void Reader::sortData(DSvector<Page>& pages, DSvector<Word>& words)
+{
 
 }

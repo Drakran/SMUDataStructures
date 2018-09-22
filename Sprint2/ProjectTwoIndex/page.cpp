@@ -12,18 +12,27 @@
 
 using namespace std;
 
+//Default Constructor is Empty
 Page::Page()
 {
 
 }
 
+//Regular Constructor
 Page::Page(int pageNum, DSvector<string> allWords)
 {
     num = pageNum;
     words = allWords;
 }
 
+//getWords returns the word Vector containing all the strings
 DSvector<string>& Page::getWords()
 {
     return words;
+}
+
+//Return page number
+int Page::getPageNum()
+{
+    return num;
 }

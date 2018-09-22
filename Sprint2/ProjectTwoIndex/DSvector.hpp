@@ -43,6 +43,7 @@ public:
     void pop_back();
     void clear();
     T at(const int);
+    void sort();
 
 };
 
@@ -237,6 +238,12 @@ T DSvector<T>::at(int const loc)
         throw logic_error("Location out of bounds");
     }
     return data[loc];
+}
+
+template<class T>
+void DSvector<T>::sort()
+{
+
 }
 
 #endif // DSVECTOR_H

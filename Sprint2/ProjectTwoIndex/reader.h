@@ -22,6 +22,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "word.h"
 
 class Reader
 {
@@ -31,6 +32,9 @@ private:
 public:
     Reader(std::string, std::string);
     void getData(DSvector<Page>&);
+    void sortData(DSvector<Page>&, DSvector<Word>&);
 };
 
 #endif // READER_H
+
+

@@ -22,6 +22,7 @@ public:
     Page();
     Page(int, DSvector<std::string>);
     DSvector<std::string>& getWords();
+    int getPageNum();
 };
 
 #endif // PAGE_H

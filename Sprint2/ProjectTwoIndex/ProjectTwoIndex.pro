@@ -7,10 +7,12 @@ SOURCES += \
         main.cpp \
     test.cpp \
     reader.cpp \
-    page.cpp
+    page.cpp \
+    word.cpp
 
 HEADERS += \
     catch.hpp \
     DSvector.hpp \
     reader.h \
-    page.h
+    page.h \
+    word.h
