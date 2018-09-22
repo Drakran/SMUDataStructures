@@ -1,3 +1,11 @@
+/* The reader class reads in the data from the sample and
+ * pharses it out into strings that the page class will take
+ *
+ * Terry Wang
+ *
+ * September 21st, 2018
+ */
+
 #include "reader.h"
 #include "DSvector.hpp"
 
@@ -36,7 +44,7 @@ void Reader::getData(DSvector<Page>& pages)
             if(tempPageNum != "-1")
             {
                 page = stoi(tempPageNum); //Converts string to int
-                cout << "PAGE:" << page << '\n';
+                //cout << "PAGE:" << page << '\n';
                 file.get(garbage); //Flush out the >
             }
             else

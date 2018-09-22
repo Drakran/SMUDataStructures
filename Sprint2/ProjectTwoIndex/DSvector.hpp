@@ -53,10 +53,6 @@ DSvector<T>::DSvector()
     size = 0;
     capacity = 10; //Default Capacity of 10
     data = new T[10];
-//    for(int x = 0; x < 10; x++)
-//    {
-//        data[x]= '\0';
-//    }
 }
 
 //Full Constructor
@@ -69,11 +65,8 @@ DSvector<T>::DSvector(int initCap)
     }
     size = initCap;
     capacity = initCap;
-    data =  new T[capacity]; //'0' terminators put it all in
-//    for(int x = 0; x < initCap; x++)
-//    {
-//        data[x]= '\0';
-//    }
+    //'0' terminators put it all in potentially
+    data =  new T[capacity];
 
 }
 
@@ -93,7 +86,7 @@ template<class T>
 T& DSvector<T>::operator[](int loc)
 {
     if(loc < 0 || loc > size - 1)
-        throw logic_error("[] out of bounds");
+        throw out_of_range("[] out of bounds");
     return data[loc];
 }
 
