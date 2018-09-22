@@ -74,7 +74,7 @@ void Reader::getData(DSvector<Page>& pages)
             tempWords.put_back(word);
             file.get(cha);
         }
-        Page temp = Page(page,tempWords);
+        Page temp = Page(page,tempWords);//Creates temp objects of Page
 //        for(int x = 0; x < tempWords.getSize(); x++)
 //        {
 //            cout << tempWords[x] << '\n';

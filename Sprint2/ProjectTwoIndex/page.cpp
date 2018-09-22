@@ -4,7 +4,7 @@ using namespace std;
 
 Page::Page()
 {
-    num = -1;
+
 }
 
 Page::Page(int pageNum, DSvector<string> allWords)
