@@ -22,9 +22,9 @@ int main(int argc, char* const argv[])
 //        cerr << test[x] << '\n';
 //    }
 //    //cout << "Hello World!" << endl;
-    cout << "2 : " << argv[2];
-    cout << "3 : " << argv[3];
-    Reader scanner(argv[2],argv[3]);
+    cerr << "2 : " << argv[2];
+    cerr << "3 : " << argv[3];
+    Reader scanner(argv[1],argv[2]);
     scanner.getData();
 
     scanner.sortData();
