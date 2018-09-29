@@ -13,6 +13,8 @@
 
 #include <exception>
 #include <stdexcept>
+#include <algorithm>
+#include <utility>
 
 using namespace std;
 
@@ -45,7 +47,8 @@ public:
     T at(const int);
     void swap(int,int);
     void erase(int);
-    void sort();
+    void sort(const int,const int);
+    int partition(const int,const int);
 
 };
 
@@ -265,30 +268,77 @@ void DSvector<T>::erase(int loc)
     }
     size--;
 }
-//Sorts with Bubble Sort
-template<class T>
-void DSvector<T>::sort()
-{
-    int x,y;
-    bool swap;
-    for(x = 0; x < size - 1; x++)
-    {
-        swap = false;
-        for(y = 0; y < size - x - 1; y++)
-        {
-           if(data[y] > data[y+1])
-           {
-               this->swap(y,y+1);
-               swap = true;
-           }
+/*The Sort Function is a Quick Sort Function
+ *
+ * This is done by gathering the first index and the last index
+ * and recursively sorting the elements to the left and right of
+ * a chosen pivot (i.e elements <= pivot to left, elements > pivot to right)
+ *
+ * The pivot is chosen from a median of 3
+ *
+ * @param left is the first index
+ * @param right is the last indes (size - 1)
+ */
 
-        }
-      if(swap == false)
-      {
-          break;
-      }
+template<class T>
+void DSvector<T>::sort(const int left,const int right)
+{
+    if(left < right)
+    {
+        int par = partition(left, right);
+
+        sort(left,par -1);
+        sort(par +1, right);
     }
 
+}
+
+template<class T>
+int DSvector<T>::partition(const int left,const int right)
+{
+
+    const int mid = left + (right - left)/2; //Stops the famous overflow bug
+
+    //Swapping elements to sort left,mid,right in order
+    //
+    if(data[mid] < data[left])
+    {
+        std::swap(data[mid],data[left]);
+    }
+    if(data[right] < data[left])
+    {
+        std::swap(data[left],data[right]);
+    }
+    if(data[right] < data[mid])
+    {
+        std::swap(data[mid],data[right]);
+    }
+
+    T pivot = data[mid];
+
+    std::swap(data[mid],data[right]); //move median to back
+    int i = left;
+    int j = right - 1;
+
+    while(i <= j)
+    {
+        while(data[i] < pivot)
+        {
+            i++;
+        }
+        while(data[j] > pivot)
+        {
+            j--;
+        }
+        if(i <= j)
+        {
+            std::swap(data[i],data[j]);
+            i++;
+            j--;
+        }
+    }
+    std::swap(data[i],data[right]);
+    return i;
 }
 
 #endif // DSVECTOR_H

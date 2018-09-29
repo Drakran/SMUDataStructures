@@ -4,4 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+    reader.cpp
+
+HEADERS += \
+    DSvector.hpp \
+    reader.h
