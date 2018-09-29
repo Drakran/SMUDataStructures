@@ -66,6 +66,7 @@ void Reader::printData()
     cout << "A Sorted List Happened!" << '\n';
     for(int x = 0; x < printWords; x++)
     {
-        outFile << words[x].word << '\n';
+        cout << words[x].word << '\n';
     }
+    outFile.close();
 }
