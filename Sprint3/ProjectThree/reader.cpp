@@ -27,26 +27,45 @@ void Reader::getData()
 
     //Reads first two lines for criteria
     file >> totalWords;
+    file.ignore();
     file >> numPrintWords;
+    file.ignore();
 
     this->totalWords = totalWords;
     this->printWords = numPrintWords;
 
-    string garbage; //gets \n, replace with ignore
-    getline(file,garbage);
-
-    while(file.good())
+    int count = 0;
+    while(count < totalWords)
     {
         string tempWord;
+        int length;
         getline(file,tempWord);
-        words.put_back(tempWord);
+        length = static_cast<int>(tempWord.length());
+        Word tempCompletedWord(tempWord,length);
+        words.put_back(tempCompletedWord);
+        count++;
     }
     file.close();
+//    for(int x = 0; x < words.getSize(); x++)
+//    {
+//        cout << words[x].word << '\n';
+//    }
 }
 
 //Sorts the Data under the two criteria
 //Sort by length, then by alphabetical order
 void Reader::sortData()
 {
+    words.sort(0,words.getSize() - 1);
+}
 
+void Reader::printData()
+{
+    ofstream outFile;
+    outFile.open(output);
+    cout << "A Sorted List Happened!" << '\n';
+    for(int x = 0; x < printWords; x++)
+    {
+        outFile << words[x].word << '\n';
+    }
 }

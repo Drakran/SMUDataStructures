@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <word.h>
 
 
 class Reader
@@ -15,7 +16,7 @@ private:
     std::string output;
     int totalWords;
     int printWords;
-    DSvector<std::string> words;
+    DSvector<Word> words;
 
 public:
     Reader(std::string,std::string);

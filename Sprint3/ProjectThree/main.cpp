@@ -2,6 +2,7 @@
 #include <iostream>
 #include <DSvector.hpp>
 #include "reader.h"
+#include <word.h>
 
 
 using namespace std;
@@ -22,7 +23,8 @@ int main(int argc, char* const argv[])
 //    }
 //    //cout << "Hello World!" << endl;
     Reader scanner(argv[2],argv[3]);
-    //cout << argv[2];
     scanner.getData();
+    scanner.sortData();
+    scanner.printData();
     return 0;
 }
