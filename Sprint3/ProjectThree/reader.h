@@ -7,7 +7,6 @@
 #include <sstream>
 #include <iostream>
 
-struct word;
 
 class Reader
 {
@@ -25,9 +24,5 @@ public:
     void printData();
 };
 
-struct word
-{
-    std::string word;
-};
 
 #endif // READER_H
