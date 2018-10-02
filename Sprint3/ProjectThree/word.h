@@ -5,6 +5,7 @@
  *
  * Terry Wang
  *
+ * October 2nd, 2018
  */
 
 #ifndef WORD_H
