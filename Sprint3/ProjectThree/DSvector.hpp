@@ -293,6 +293,11 @@ void DSvector<T>::sort(const int left,const int right)
 
 }
 
+/*Two Partition QuickSort
+ * @param left is the first index
+ * @param right is the last index
+ * @return i is the pivot
+ */
 template<class T>
 int DSvector<T>::partition(const int left,const int right)
 {
@@ -300,7 +305,7 @@ int DSvector<T>::partition(const int left,const int right)
     const int mid = left + (right - left)/2; //Stops the famous overflow bug
 
     //Swapping elements to sort left,mid,right in order
-    //
+    //Median swap
     if(data[mid] < data[left])
     {
         std::swap(data[mid],data[left]);
@@ -316,20 +321,24 @@ int DSvector<T>::partition(const int left,const int right)
 
     T pivot = data[mid];
 
-    std::swap(data[mid],data[right]); //move median to back
+    std::swap(data[mid],data[right]); //move median to last -1
     int i = left;
     int j = right - 1;
 
+    //do comparision till i and j jcross
     while(i <= j)
     {
+        //Finds element till one is greater than pivot
         while(data[i] < pivot)
         {
             i++;
         }
+        //Finds element till one is less than pivot
         while(data[j] > pivot)
         {
             j--;
         }
+        //If i and j havent crossed, swap
         if(i <= j)
         {
             std::swap(data[i],data[j]);
@@ -337,8 +346,9 @@ int DSvector<T>::partition(const int left,const int right)
             j--;
         }
     }
+    //Swap median back to the median position
     std::swap(data[i],data[right]);
-    return i;
+    return i; //Returns pivot
 }
 
 #endif // DSVECTOR_H

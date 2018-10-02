@@ -34,6 +34,7 @@ void Reader::getData()
     this->totalWords = totalWords;
     this->printWords = numPrintWords;
 
+    //Reads till all words are read
     int count = 0;
     while(count < totalWords)
     {
@@ -46,10 +47,6 @@ void Reader::getData()
         count++;
     }
     file.close();
-//    for(int x = 0; x < words.getSize(); x++)
-//    {
-//        cout << words[x].word << '\n';
-//    }
 }
 
 //Sorts the Data under the two criteria
@@ -59,6 +56,7 @@ void Reader::sortData()
     words.sort(0,words.getSize() - 1);
 }
 
+//Prints the data to an output
 void Reader::printData()
 {
     ofstream outFile;

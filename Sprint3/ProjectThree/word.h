@@ -1,3 +1,12 @@
+/*
+ * The word structure has both the string word and
+ * length of the words. This is used to make it
+ * very easier to sort by > and <
+ *
+ * Terry Wang
+ *
+ */
+
 #ifndef WORD_H
 #define WORD_H
 
