@@ -250,10 +250,10 @@ T DSvector<T>::at(int const loc)
 template<class T>
 void DSvector<T>::swap(int x, int y)
 {
-//    T temp = data[x];
-//    data[x] = data[y];
-//    data[y] = temp;
-    std::swap(data[x],data[y]);
+    T temp = data[x];
+    data[x] = data[y];
+    data[y] = temp;
+    //std::swap(data[x],data[y]);
 }
 
 //Erase Method
@@ -334,20 +334,20 @@ int DSvector<T>::partition(const int left,const int right)
     //Median swap
     if(data[mid] < data[left])
     {
-        std::swap(data[mid],data[left]);
+        swap(mid,left);
     }
     if(data[right] < data[left])
     {
-        std::swap(data[left],data[right]);
+        swap(left,right);
     }
     if(data[right] < data[mid])
     {
-        std::swap(data[mid],data[right]);
+        swap(mid,right);
     }
 
     T pivot = data[mid];
 
-    std::swap(data[mid],data[right]); //move median to last -1
+    swap(mid,right); //move median to last -1
     int i = left;
     int j = right - 1;
 
@@ -367,13 +367,13 @@ int DSvector<T>::partition(const int left,const int right)
         //If i and j havent crossed, swap
         if(i <= j)
         {
-            std::swap(data[i],data[j]);
+            swap(i,j);
             i++;
             j--;
         }
     }
     //Swap median back to the median position
-    std::swap(data[i],data[right]);
+    swap(i,right);
     return i; //Returns pivot
 }
 
