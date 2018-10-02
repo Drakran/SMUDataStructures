@@ -283,13 +283,39 @@ void DSvector<T>::erase(int loc)
 template<class T>
 void DSvector<T>::sort(const int left,const int right)
 {
-    if(left < right)
+    if(size < 20)
     {
-        int par = partition(left, right);
+        T key;
+        int y;
+        for(int x = 1; x < size; x++)
+        {
+            key = data[x];
+            y = x - 1;
 
-        sort(left,par -1);
-        sort(par +1, right);
+            //If element behind key is greater than key
+            //Move foward each element and put key where
+            //It belongs in order
+            while(y >= 0 && data[y] >  key)
+            {
+                data[y+1] = data[y];
+                y--;
+            }
+            data[y+1] = key;
+        }
     }
+
+    else
+    {
+        if(left < right)
+        {
+            int par = partition(left, right);
+
+            sort(left,par -1);
+            sort(par +1, right);
+        }
+
+    }
+
 
 }
 

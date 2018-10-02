@@ -42,7 +42,7 @@ void Reader::getData()
         int length;
         getline(file,tempWord);
         length = static_cast<int>(tempWord.length());
-        Word tempCompletedWord(tempWord,length);
+        Word tempCompletedWord(tempWord,length); //Creates word Object
         words.put_back(tempCompletedWord);
         count++;
     }
@@ -64,7 +64,7 @@ void Reader::printData()
     cout << "A Sorted List Happened!" << '\n';
     for(int x = 0; x < printWords; x++)
     {
-        cout << words[x].word << '\n';
+        outFile << words[x].word << '\n';
     }
     outFile.close();
 }
