@@ -34,6 +34,7 @@ public:
     bool isEmpty() const;
 
 private:
+    void insertBack(Node<T>*);
     Node<T>* head, *tail, *currIter;
 };
 
@@ -54,22 +55,27 @@ LinkedList<T>::~LinkedList()
     }
 }
 
-
+template<typename T>
+void LinkedList<T>::insertBack(T val)
+{
+    Node<T>* temp = new Node<T>(val);
+    insertBack(temp);
+}
 
 /* The insertBack function inserts a node into the end of the List
  * @param val is the value to put in
  */
 template<typename T>
-void LinkedList<T>::insertBack(T val)
+void LinkedList<T>::insertBack(Node<T>* val)
 {
     if(isEmpty())
     {
-        head = new Node<T>(val);
+        head = val;
         tail = head; //Works b/c head == nullptr
     }
     else
     {
-        tail->next = new Node<T>(val);
+        tail->next = val;
         tail->next->prev = tail;
         tail = tail->next;
     }
