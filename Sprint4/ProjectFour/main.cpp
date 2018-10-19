@@ -1,9 +1,18 @@
+
+#define CATCH_CONFIG_RUNNER
+#include "catch.hpp"
+#include "node.hpp"
 #include <iostream>
+
 
 using namespace std;
 
-int main()
+int runCatchTests()
 {
-    cout << "Hello World!" << endl;
-    return 0;
+    return Catch::Session().run();
+}
+
+int main(int argc, char* const argv[])
+{
+    return runCatchTests();
 }

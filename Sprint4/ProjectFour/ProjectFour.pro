@@ -4,7 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+    test.cpp
 
 HEADERS += \
-    node.hpp
+    node.hpp \
+    catch.hpp \
+    linkedlist.hpp
