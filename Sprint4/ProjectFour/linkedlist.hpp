@@ -28,16 +28,17 @@ public:
     LinkedList():
         head{nullptr}, tail{nullptr}, currIter{nullptr},length(0) {}
     ~LinkedList();
-    void insertFront(T val);
-    void insertBack(T val);
-    void insertAt(int pos, T val);
+    void insertFront(T);
+    void insertBack(T);
+    void insertAt(int, T);
+    T& operator[](int);
     int getSize();
     void print();
     void clear();
     bool isEmpty() const;
 
 private:
-    void insertHere(int pos, T val);
+    void insertHere(int, T);
     void insertBack(Node<T>*);
     void insertFront(Node<T>*);
     Node<T>* head, *tail, *currIter;
@@ -61,6 +62,24 @@ LinkedList<T>::~LinkedList()
     }
 }
 
+/*[] operator return the value at that location
+ * @param loc the index to return from
+ * @return the data type at that index
+ */
+template<typename T>
+T& LinkedList<T>::operator[](int loc)
+{
+    //Guaranttes no out of range
+    if(loc < 0 || loc > length - 1)
+        throw std::out_of_range("[] is out of range");
+    Node<T>* current = head;
+    while(loc > 0)
+    {
+        current = current->next;
+        loc--;
+    }
+    return current->data;
+}
 /* Get size return the size/length of the List
  * @return size the size of the list
  */
@@ -153,12 +172,11 @@ void LinkedList<T>::insertHere(int pos, T val)
     {
         throw std::logic_error("insertHere position is out of bounds");
     }
-
-    if(head != nullptr)
+    //if empty or want to put at front(pos==0), skip if condition
+    if(head != nullptr && pos != 0)
     {
         Node<T>* current = head;
-        if(pos == 0){insertFront(val); return;}
-        while(current->next !=nullptr && pos > 0)
+        while(current->next !=nullptr && (pos-1) > 0)
         {
             current = current->next;
             pos--;
@@ -169,12 +187,14 @@ void LinkedList<T>::insertHere(int pos, T val)
         Node<T>* temp = new Node<T>(val);
         temp->prev = current;
         temp->next = current->next;
-        current->next->prev = temp;
+        current->next->prev = temp;//This is why need if == tail
         current->next = temp;
         length++;
     }
-    insertFront(val);
-    length++;
+    else
+        //if looking at front put front
+        insertFront(val);
+
 }
 
 /* The Print methods prints everything out
@@ -205,9 +225,10 @@ void LinkedList<T>::clear()
     while(head != nullptr)
     {
         Node<T>* temp = head->next;
-        delete[] head;
+        delete head;
         head = temp;
     }
+    length = 0;
 
 }
 
