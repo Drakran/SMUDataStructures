@@ -113,11 +113,15 @@ void AdjList<T>::print()
         //For the entire LinkedList where iter is poinintg
         for(int y = 0; y < data.getIter().getSize(); y++)
         {
+           //Print everything in that list
            std::cout << step(data.getIter().getFirst());
         }
+        //Reset the iter in that list
         reset(data.getIter().getFirst());
+        //Move on the next outer list in the data
         data.next();
         std::cout << '\n';
     }
+    //put iter back at the beginning
     data.resetIter();
 }

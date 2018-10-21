@@ -19,6 +19,18 @@ using namespace std;
 
 TEST_CASE("LinkedList")
 {
+    //Table of Contents
+    /* 1. Constructor
+     * 2. InsertBack Insert Front, getsize, and print errors
+     * 3. [] operator
+     * 4.insert At operator
+     * 5.removeFront and Remove back
+     * 6.Remove at
+     * 7.getLast and get Front
+     * 8.Iterator Tests(get,reset,next)
+     * 9.=operator and copy
+     * 10.clear
+     */
     LinkedList<string> mainTest;
     SECTION("BASIC CONSTUCTOR")
     {
@@ -275,10 +287,11 @@ TEST_CASE("Adjacency List Graph Thingy Test")
     SECTION("print")
     {
         //This shoudn't matter too much just testing print
-        mainList.addEdge(bob,jim);
-        mainList.addEdge(bob,terry);
-        mainList.addEdge(jim,bob);
-        mainList.print();
+        //BTW IT WORKS!
+//        mainList.addEdge(bob,jim);
+//        mainList.addEdge(bob,terry);
+//        mainList.addEdge(jim,bob);
+//        mainList.print();
     }
 
 }
