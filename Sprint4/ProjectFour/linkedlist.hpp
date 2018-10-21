@@ -28,19 +28,26 @@ public:
     LinkedList():
         head{nullptr}, tail{nullptr}, currIter{nullptr},length(0) {}
     ~LinkedList();
+    LinkedList& operator=(const LinkedList&);
+    T& operator[](int);
+    int getSize();
     void insertFront(T);
     void insertBack(T);
     void insertAt(int, T);
     void removeFront();
     void removeBack();
     void removeAt(int);
-    T& operator[](int);
-    int getSize();
+    T& getIter();
+    void resetIter();
+    T& next();
     void print();
     void clear();
     bool isEmpty() const;
 
 private:
+    //Note: These are private but remove aren't for
+    //Testing difference between private and public methods
+    //Not consistent coding design technically but easily changed
     void insertHere(int, T);
     void insertBack(Node<T>*);
     void insertFront(Node<T>*);
@@ -63,6 +70,25 @@ LinkedList<T>::~LinkedList()
             current = temp;
         }
     }
+}
+
+/*=operator is the assignment operator
+ * @param arg is the one being copyed from(right hand side)
+ * @return is the new copyed one
+ */
+template<typename T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList& arg)
+{
+    //If not empty, clear first
+    if(head !=nullptr){clear();}
+    Node<T>* current = arg.head;
+    while(current !=nullptr)
+    {
+        insertBack(current->data);
+        current = current->next;
+    }
+    length = arg.length;
+    return *this;
 }
 
 /*[] operator return the value at that location
@@ -113,6 +139,7 @@ void LinkedList<T>::insertFront(Node<T>* val)
     {
         head = val;
         tail = head; //Works b/c head == nullptr
+        currIter = head;
     }
     else
     {
@@ -144,6 +171,7 @@ void LinkedList<T>::insertBack(Node<T>* val)
     {
         head = val;
         tail = head; //Works b/c head == nullptr
+        currIter = head;
     }
     else
     {
@@ -279,6 +307,47 @@ void LinkedList<T>::removeAt(int loc)
         current->next->prev=current->prev;
         delete current;
         length--;
+    }
+}
+
+/*getIter returns the data where currIter is without moving it
+ * @return the data of currIter
+ */
+template<typename T>
+T& LinkedList<T>::getIter()
+{
+    return currIter->data;
+}
+
+/*resetIter resets the iter pointer to the begiining
+ */
+template<typename T>
+void LinkedList<T>::resetIter()
+{
+    currIter = head;
+}
+
+/*next moves the iter up and returns the data at that iter
+ */
+template<typename T>
+T& LinkedList<T>::next()
+{
+    if(isEmpty())
+    {
+        throw std::logic_error("next but list is empty");
+    }
+    if(head == tail){return currIter->data;}
+    if(currIter != tail)
+    {
+        T& temp = currIter->data;
+        currIter = currIter->next;
+        return temp;
+    }
+    else
+    {
+        T& temp = currIter->data;
+        resetIter();
+        return temp;
     }
 }
 

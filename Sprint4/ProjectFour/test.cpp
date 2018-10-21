@@ -35,6 +35,8 @@ TEST_CASE("LinkedList")
         mainTest.insertFront("HI-1");
         mainTest.insertFront("Hi-2");
         REQUIRE(mainTest.getSize() == 4);
+        mainTest.insertBack("HI-4");
+        REQUIRE(mainTest[4] == "HI-4");
     }
 
     SECTION("[] Test")
@@ -50,6 +52,8 @@ TEST_CASE("LinkedList")
         intTests.insertFront(1);
         REQUIRE(intTests[0] == 1);
     }
+
+
 
     SECTION("test InsertAt")
     {
@@ -116,7 +120,7 @@ TEST_CASE("LinkedList")
         REQUIRE(mainTest[0] == "zero");
         REQUIRE_THROWS_AS(mainTest[1], out_of_range);
         mainTest.insertAt(1, "one");
-        //Test remvoe if head
+        //Test remove if head
         mainTest.removeAt(0);
         REQUIRE(mainTest[0] == "one");
         REQUIRE(mainTest.getSize() == 1);
@@ -131,6 +135,31 @@ TEST_CASE("LinkedList")
         REQUIRE(mainTest[0] == "zero");
         REQUIRE(mainTest[1] == "two");
         REQUIRE(mainTest.getSize() == 2);
+    }
+
+    SECTION("=operator")
+    {
+        mainTest.insertBack("0");
+        mainTest.insertBack("1");
+        LinkedList<string> copy;
+        copy.insertFront("NOT SUPPOSED TO BE HERE");
+        copy = mainTest;
+        REQUIRE(copy.getSize() == 2);
+        REQUIRE(copy[0] == "0");
+        REQUIRE(copy[1] == "1");
+
+    }
+
+    SECTION("Iterator Tests")
+    {
+        mainTest.insertAt(0, "zero");
+        REQUIRE(mainTest.getIter() == "zero");
+        mainTest.insertAt(1, "one");
+        mainTest.insertAt(2, "two");
+        REQUIRE(mainTest.next() == "zero");
+        REQUIRE(mainTest.next() == "one");
+        REQUIRE(mainTest.next() == "two");
+        REQUIRE(mainTest.next() == "zero");
     }
 
     SECTION("Clear Test and getSize")
