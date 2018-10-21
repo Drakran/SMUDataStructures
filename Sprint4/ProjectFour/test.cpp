@@ -11,6 +11,7 @@
 #include "catch.hpp"
 #include "linkedlist.hpp"
 #include "stack.hpp"
+#include "adjlist.hpp"
 #include <iostream>
 #include <string>
 
@@ -210,6 +211,22 @@ TEST_CASE("Stack Tests")
         REQUIRE(mainStack.contains("0") == true);
     }
 
+}
+
+TEST_CASE("Adjacency List Graph Thingy Test")
+{
+    AdjList<string> mainList;
+    string first = "1";
+    string sec = "2";
+    SECTION("addEdges test")
+    {
+        //mainList.addEdge(first,sec);
+        LinkedList<int> test;
+        LinkedList<LinkedList<int>> mainTest;
+        test.insertBack(1);
+        //test.insertBack(2);
+        mainTest.insertBack(test);
+    }
 }
 
 

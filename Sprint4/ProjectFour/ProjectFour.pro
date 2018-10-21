@@ -11,4 +11,5 @@ HEADERS += \
     node.hpp \
     catch.hpp \
     linkedlist.hpp \
-    stack.hpp
+    stack.hpp \
+    adjlist.hpp
