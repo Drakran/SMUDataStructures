@@ -21,12 +21,13 @@ class AdjList
 {
 private:
     LinkedList<LinkedList<T>> data;
+    LinkedList<T>& first(T);
 public:
     void addEdge(T, T);
-    LinkedList<T> first(T);
-    void print();
-    T step(); //Save for later when figuring out how to iterate
-    void reset();
+    LinkedList<T> findFirst(T);
+    T step(T);
+    void reset(T);
+    void print(); //Not really needed
 };
 #endif // ADJLIST_H
 
@@ -55,11 +56,22 @@ void AdjList<T>::addEdge(T find,T val)
     }
 }
 
-/*first returns the LinkedList of the first element in the list for a val
+/* find first calls first if its every needed publically (which for test sure)
+ * @param val the linkedlist we're looking for
+ * @return the first linkedlist in adjlist
+ */
+template<typename T>
+LinkedList<T> AdjList<T>::findFirst(T val)
+{
+    return first(val);
+}
+
+/*first(private) returns the LinkedList of the first element in the list for a val
+ * @param val the linkedlist we're looking for
  * @return the first element in the Adjlist
  */
 template<typename T>
-LinkedList<T> AdjList<T>::first(T val)
+LinkedList<T>& AdjList<T>::first(T val)
 {
     for(int x = 0; x < data.getSize(); x++)
     {
@@ -67,13 +79,45 @@ LinkedList<T> AdjList<T>::first(T val)
         {
             return data[x];
         }
-        else
-        {
-            return; //If not here just don't return anything?
-        }
     }
+    throw std::logic_error("finding the linkedlist but its not here"); //If not here just don't return anything?
 }
 
 /*step iterates through the list iterativly
+ * @param which List to step through
  * @return the data at that point in the list
  */
+template<typename T>
+T AdjList<T>::step(T val)
+{
+    return first(val).next();
+}
+
+/*Resets the iter for a value
+ * @param which List to reset
+ */
+template<typename T>
+void AdjList<T>::reset(T val)
+{
+    first(val).resetIter();
+}
+
+/*print is an an example of iteratting
+ */
+template<typename T>
+void AdjList<T>::print()
+{
+    //For the entire data
+    for(int x = 0; x < data.getSize(); x++)
+    {
+        //For the entire LinkedList where iter is poinintg
+        for(int y = 0; y < data.getIter().getSize(); y++)
+        {
+           std::cout << step(data.getIter().getFirst());
+        }
+        reset(data.getIter().getFirst());
+        data.next();
+        std::cout << '\n';
+    }
+    data.resetIter();
+}

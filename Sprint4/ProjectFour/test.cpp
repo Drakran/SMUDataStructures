@@ -137,38 +137,17 @@ TEST_CASE("LinkedList")
         REQUIRE(mainTest.getSize() == 2);
     }
 
-    SECTION("=operator and copy consutrcotr")
-    {
-        mainTest.insertBack("0");
-        mainTest.insertBack("1");
-        LinkedList<string> copy;
-        copy.insertFront("NOT SUPPOSED TO BE HERE");
-        copy = mainTest;
-        REQUIRE(copy.getSize() == 2);
-        REQUIRE(copy[0] == "0");
-        REQUIRE(copy[1] == "1");
-    }
 
-    SECTION("copy constructor")
-    {
-        mainTest.insertBack("0");
-        mainTest.insertBack("1");
-        LinkedList<string> test = mainTest;
-        LinkedList<string> cConstructor(mainTest);
-        REQUIRE(cConstructor.getSize() == 2);
-        REQUIRE(cConstructor[0] == "0");
-        REQUIRE(cConstructor[1] == "1");
-    }
-
-    SECTION("GetLast test")
+    SECTION("GetLast and get firsttest")
     {
         mainTest.insertBack("0");
         REQUIRE(mainTest.getLast() == "0");
         mainTest.insertBack("1");
         REQUIRE(mainTest.getLast() == "1");
+        REQUIRE(mainTest.getFirst() == "0");
     }
 
-    SECTION("Iterator Tests")
+    SECTION("iterator test Tests")
     {
         mainTest.insertAt(0, "zero");
         REQUIRE(mainTest.getIter() == "zero");
@@ -176,9 +155,40 @@ TEST_CASE("LinkedList")
         mainTest.insertAt(2, "two");
         REQUIRE(mainTest.next() == "zero");
         REQUIRE(mainTest.next() == "one");
+        //Iter is at two
+        REQUIRE(mainTest.getIter() == "two");
         REQUIRE(mainTest.next() == "two");
+        REQUIRE(mainTest.getIter() == "zero");
         REQUIRE(mainTest.next() == "zero");
     }
+
+    SECTION("=operator and copy consutrcotr")
+    {
+        mainTest.insertBack("0");
+        mainTest.insertBack("1");
+        mainTest.next();
+        LinkedList<string> copy;
+        copy.insertFront("NOT SUPPOSED TO BE HERE");
+        copy = mainTest;
+        REQUIRE(copy.getSize() == 2);
+        REQUIRE(copy[0] == "0");
+        REQUIRE(copy[1] == "1");
+        REQUIRE(copy.getIter() == "1");
+    }
+
+    SECTION("copy constructor")
+    {
+        mainTest.insertBack("0");
+        mainTest.insertBack("1");
+        mainTest.next();
+        LinkedList<string> test = mainTest;
+        LinkedList<string> cConstructor(mainTest);
+        REQUIRE(cConstructor.getSize() == 2);
+        REQUIRE(cConstructor[0] == "0");
+        REQUIRE(cConstructor[1] == "1");
+        REQUIRE(cConstructor.getIter() == "1");
+    }
+
 
     SECTION("Clear Test and getSize")
     {
@@ -226,20 +236,51 @@ TEST_CASE("Stack Tests")
 TEST_CASE("Adjacency List Graph Thingy Test")
 {
     AdjList<string> mainList;
-    string first = "1";
-    string sec = "2";
-    string thi = "3";
+    string bob = "Bob";
+    string jim = "Jim";
+    string terry = "Terry";
     SECTION("addEdges test")
     {
-        //mainList.addEdge(first,sec);
-        LinkedList<int> test;
-        LinkedList<LinkedList<int>> mainTest;
-        test.insertBack(1);
-        test.insertBack(2);
-        test.insertBack(3);
-        mainTest.insertBack(test);
-
+        mainList.addEdge(bob,jim);
+        mainList.addEdge(bob,terry);
+        mainList.addEdge(jim,bob);
     }
+
+    SECTION("find Front")
+    {
+        mainList.addEdge(bob,jim);
+        mainList.addEdge(jim,bob);
+        mainList.addEdge(jim,terry);
+        LinkedList<string> one = mainList.findFirst(bob);
+        REQUIRE(one[0] == "Bob");
+        REQUIRE(one[1] == "Jim");
+        LinkedList<string> two = mainList.findFirst(jim);
+        REQUIRE(two[0] == "Jim");
+        REQUIRE(two[1] == "Bob");
+        REQUIRE(two[2] == "Terry");
+    }
+
+    SECTION("step and reset")
+    {
+        mainList.addEdge(bob,jim);
+        mainList.addEdge(bob,terry);
+        REQUIRE(mainList.step("Bob") == "Bob");
+        REQUIRE(mainList.step("Bob") == "Jim");
+        REQUIRE(mainList.step("Bob") == "Terry");
+        mainList.reset("Bob");
+        REQUIRE(mainList.step("Bob") == "Bob");
+        mainList.reset("Bob");
+    }
+
+    SECTION("print")
+    {
+        //This shoudn't matter too much just testing print
+        mainList.addEdge(bob,jim);
+        mainList.addEdge(bob,terry);
+        mainList.addEdge(jim,bob);
+        mainList.print();
+    }
+
 }
 
 
