@@ -9,8 +9,8 @@
  */
 
 #include "catch.hpp"
-#include "node.hpp"
 #include "linkedlist.hpp"
+#include "stack.hpp"
 #include <iostream>
 #include <string>
 
@@ -78,7 +78,6 @@ TEST_CASE("LinkedList")
         REQUIRE(mainTest[4] == "NewThree");
         //Check if can insertAt front and back is still in order
         mainTest.insertAt(0,"Front");
-        mainTest.print();
         REQUIRE(mainTest[0] == "Front");
         REQUIRE(mainTest[6] == "Three");
 
@@ -150,6 +149,14 @@ TEST_CASE("LinkedList")
 
     }
 
+    SECTION("GetLast test")
+    {
+        mainTest.insertBack("0");
+        REQUIRE(mainTest.getLast() == "0");
+        mainTest.insertBack("1");
+        REQUIRE(mainTest.getLast() == "1");
+    }
+
     SECTION("Iterator Tests")
     {
         mainTest.insertAt(0, "zero");
@@ -171,6 +178,38 @@ TEST_CASE("LinkedList")
         mainTest.clear();
         REQUIRE(mainTest.getSize() == 0);
     }
+}
+
+
+TEST_CASE("Stack Tests")
+{
+    Stack<string> mainStack;
+    SECTION("push and peek and get Size")
+    {
+        REQUIRE(mainStack.getSize() == 0);
+        REQUIRE_THROWS_AS(mainStack.peek(), logic_error);
+        mainStack.push("0");
+        REQUIRE(mainStack.peek() == "0");
+        REQUIRE(mainStack.getSize() == 1);
+        mainStack.push("1");
+        REQUIRE(mainStack.peek() == "1");
+    }
+
+    SECTION("pop and is empty")
+    {
+        mainStack.push("0");
+        REQUIRE(mainStack.isEmpty() == false);
+        REQUIRE(mainStack.pop() == "0");
+        REQUIRE(mainStack.getSize() == 0);
+        REQUIRE(mainStack.isEmpty() == true);
+    }
+
+    SECTION("contains")
+    {
+        mainStack.push("0");
+        REQUIRE(mainStack.contains("0") == true);
+    }
+
 }
 
 

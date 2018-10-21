@@ -10,4 +10,5 @@ SOURCES += \
 HEADERS += \
     node.hpp \
     catch.hpp \
-    linkedlist.hpp
+    linkedlist.hpp \
+    stack.hpp

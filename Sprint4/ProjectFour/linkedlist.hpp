@@ -40,6 +40,7 @@ public:
     T& getIter();
     void resetIter();
     T& next();
+    T& getLast();
     void print();
     void clear();
     bool isEmpty() const;
@@ -349,6 +350,18 @@ T& LinkedList<T>::next()
         resetIter();
         return temp;
     }
+}
+
+/*GetLast gets the last element
+ */
+template<typename T>
+T& LinkedList<T>::getLast()
+{
+    if(isEmpty())
+    {
+        throw std::logic_error("next but list is empty");
+    }
+    return tail->data;
 }
 
 /* The Print methods prints everything out
