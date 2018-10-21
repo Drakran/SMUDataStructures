@@ -31,6 +31,9 @@ public:
     void insertFront(T);
     void insertBack(T);
     void insertAt(int, T);
+    void removeFront();
+    void removeBack();
+    void removeAt(int);
     T& operator[](int);
     int getSize();
     void print();
@@ -195,6 +198,88 @@ void LinkedList<T>::insertHere(int pos, T val)
         //if looking at front put front
         insertFront(val);
 
+}
+
+/*Removefront removes at the beginning
+ */
+template<typename T>
+void LinkedList<T>::removeFront()
+{
+    if(isEmpty())
+    {
+        throw std::logic_error("removeFront but list is empty");
+    }
+    //If only one element
+    else if(head == tail)
+    {
+        delete head;
+        head = nullptr;
+        tail = nullptr;
+        length--;
+    }
+    else
+    {
+        head = head->next;
+        delete head->prev;
+        head->prev = nullptr;
+        length--;
+    }
+
+}
+
+/*Remove back removes list at end
+ */
+template<typename T>
+void LinkedList<T>::removeBack()
+{
+    if(isEmpty())
+    {
+        throw std::logic_error("removeBack but list is empty");
+    }
+    else if(head == tail)
+    {
+        delete tail;
+        head = nullptr;
+        tail = nullptr;
+        length--;
+    }
+    else
+    {
+        tail = tail->prev;
+        delete tail->next;
+        tail->next = nullptr;
+        length--;
+    }
+
+}
+
+/*Removeat removes a value at that index
+ * @param location to remove
+ */
+template<typename T>
+void LinkedList<T>::removeAt(int loc)
+{
+    if(loc < 0 || loc > length || isEmpty() == true)
+    {
+        throw std::out_of_range("removeAt is out of range");
+    }
+    Node<T>* current = head;
+    while(loc > 0)
+    {
+        current = current->next;
+        loc--;
+    }
+    if(current == head){removeFront();}
+    else if(current == tail){removeBack();}
+    else
+    {
+        //Sets node before current to one after current
+        current->prev->next = current->next;
+        //Sets node after current to one berfore current
+        current->next->prev=current->prev;
+        delete current;
+        length--;
+    }
 }
 
 /* The Print methods prints everything out
