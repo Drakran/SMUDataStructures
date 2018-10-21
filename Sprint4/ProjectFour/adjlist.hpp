@@ -23,7 +23,7 @@ private:
     LinkedList<LinkedList<T>> data;
 public:
     void addEdge(T, T);
-    LinkedList<T> first();
+    LinkedList<T> first(T);
     void print();
     T step(); //Save for later when figuring out how to iterate
     void reset();
@@ -55,9 +55,24 @@ void AdjList<T>::addEdge(T find,T val)
     }
 }
 
-/*first returns the LinkedList of the first element in the list
+/*first returns the LinkedList of the first element in the list for a val
  * @return the first element in the Adjlist
  */
+template<typename T>
+LinkedList<T> AdjList<T>::first(T val)
+{
+    for(int x = 0; x < data.getSize(); x++)
+    {
+        if(data[x][0] == val)
+        {
+            return data[x];
+        }
+        else
+        {
+            return; //If not here just don't return anything?
+        }
+    }
+}
 
 /*step iterates through the list iterativly
  * @return the data at that point in the list

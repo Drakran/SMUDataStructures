@@ -137,7 +137,7 @@ TEST_CASE("LinkedList")
         REQUIRE(mainTest.getSize() == 2);
     }
 
-    SECTION("=operator")
+    SECTION("=operator and copy consutrcotr")
     {
         mainTest.insertBack("0");
         mainTest.insertBack("1");
@@ -147,7 +147,17 @@ TEST_CASE("LinkedList")
         REQUIRE(copy.getSize() == 2);
         REQUIRE(copy[0] == "0");
         REQUIRE(copy[1] == "1");
+    }
 
+    SECTION("copy constructor")
+    {
+        mainTest.insertBack("0");
+        mainTest.insertBack("1");
+        LinkedList<string> test = mainTest;
+        LinkedList<string> cConstructor(mainTest);
+        REQUIRE(cConstructor.getSize() == 2);
+        REQUIRE(cConstructor[0] == "0");
+        REQUIRE(cConstructor[1] == "1");
     }
 
     SECTION("GetLast test")
@@ -218,14 +228,17 @@ TEST_CASE("Adjacency List Graph Thingy Test")
     AdjList<string> mainList;
     string first = "1";
     string sec = "2";
+    string thi = "3";
     SECTION("addEdges test")
     {
         //mainList.addEdge(first,sec);
         LinkedList<int> test;
         LinkedList<LinkedList<int>> mainTest;
         test.insertBack(1);
-        //test.insertBack(2);
+        test.insertBack(2);
+        test.insertBack(3);
         mainTest.insertBack(test);
+
     }
 }
 

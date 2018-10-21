@@ -27,6 +27,7 @@ public:
     //Constructor for nullptr
     LinkedList():
         head{nullptr}, tail{nullptr}, currIter{nullptr},length(0) {}
+    LinkedList(const LinkedList&);
     ~LinkedList();
     LinkedList& operator=(const LinkedList&);
     T& operator[](int);
@@ -56,20 +57,36 @@ private:
     int length;
 };
 
+
+/*Copy Consutrctor
+ * @param arg is the one being copyed from
+ */
+template<typename T>
+LinkedList<T>::LinkedList(const LinkedList& arg):
+    head{nullptr},tail{nullptr},currIter{nullptr},length{0}
+{
+    Node<T>* current = arg.head;
+    while(current !=nullptr)
+    {
+        insertBack(current->data);
+        current = current->next;
+    }
+    length = arg.length;
+    resetIter();
+}
+
 //Destructor
 template<typename T>
 LinkedList<T>::~LinkedList()
 {
-    if(!isEmpty())
+    Node<T>* current = head;
+
+    while(current != nullptr)
     {
-        Node<T>* current = head;
-        Node<T>* temp = nullptr;
-        while(current != nullptr)
-        {
-            temp = current->next;
-            delete current;
-            current = temp;
-        }
+        Node<T>* temp = current;
+        current = current->next;
+        delete temp;
+        length--;
     }
 }
 
@@ -80,6 +97,8 @@ LinkedList<T>::~LinkedList()
 template<typename T>
 LinkedList<T>& LinkedList<T>::operator=(const LinkedList& arg)
 {
+    //Self assignement protetion
+    if(this == &arg){return *this;}
     //If not empty, clear first
     if(head !=nullptr){clear();}
     Node<T>* current = arg.head;
@@ -89,6 +108,7 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList& arg)
         current = current->next;
     }
     length = arg.length;
+    resetIter();
     return *this;
 }
 
