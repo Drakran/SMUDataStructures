@@ -14,5 +14,9 @@ int runCatchTests()
 
 int main(int argc, char* const argv[])
 {
-    return runCatchTests();
+    if(strcmp(argv[1], "-t") == 0)
+    {
+        return runCatchTests();
+    }
+
 }
