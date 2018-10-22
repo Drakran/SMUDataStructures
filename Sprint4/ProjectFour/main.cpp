@@ -18,5 +18,10 @@ int main(int argc, char* const argv[])
     {
         return runCatchTests();
     }
+    else
+    {
+        //temp holder till more
+        return runCatchTests();
+    }
 
 }
