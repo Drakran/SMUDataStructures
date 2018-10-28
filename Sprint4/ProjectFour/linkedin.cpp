@@ -1,24 +1,17 @@
-#include "reader.h"
+#include "linkedin.h"
 
-//Nothings here
-Reader::Reader()
-{}
-
-//Real Constructor
-Reader::Reader(std::string in,std::string com,std::string out)
+LinkedIn::LinkedIn()
 {
-    input = in;
-    compare = com;
-    output = out;
+
 }
 
 /*readData parses the data from the input file and
  * puts it into the adjlist
  */
-void Reader::readData()
+void LinkedIn::readData(std::string data)
 {
     std::ifstream file;
-    file.open(input);
+    file.open(data);
 
     if(!file)
     {
@@ -41,5 +34,6 @@ void Reader::readData()
         totalWords--;
     }
 
+    list.print();
     file.close();
 }

@@ -6,7 +6,7 @@ CONFIG -= qt
 SOURCES += \
         main.cpp \
     test.cpp \
-    reader.cpp
+    linkedin.cpp
 
 HEADERS += \
     node.hpp \
@@ -14,4 +14,5 @@ HEADERS += \
     linkedlist.hpp \
     stack.hpp \
     adjlist.hpp \
-    reader.h
+    DSvector.hpp \
+    linkedin.h

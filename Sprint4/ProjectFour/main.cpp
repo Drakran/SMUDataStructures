@@ -2,7 +2,7 @@
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
 #include "node.hpp"
-#include "reader.h"
+#include "linkedin.h"
 #include <iostream>
 
 
@@ -19,8 +19,13 @@ int main(int argc, char* const argv[])
     else if(strcmp(argv[1], "-r") == 0)
     {
         std::cout << "The Terry AdjList Below:" << '\n';
-        Reader scanner(argv[2],argv[3],argv[4]);
-        scanner.readData();
+        LinkedIn mainList;
+        mainList.readData(argv[2]);
+    }
+    else
+    {
+        //Note if you're here something went horribly wrong
+        std::cout << "Welp, I guess somethings went and borked up" << '\n';
     }
 
 }
