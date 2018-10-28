@@ -68,7 +68,8 @@ LinkedList<T> AdjList<T>::findFirst(T val)
 
 /*first(private) returns the LinkedList of the first element in the list for a val
  * @param val the linkedlist we're looking for
- * @return the first element in the Adjlist
+ * @return the first element in the Adjlist, its refrence but since its a private
+ * method it is fine and faster
  */
 template<typename T>
 LinkedList<T>& AdjList<T>::first(T val)

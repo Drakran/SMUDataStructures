@@ -18,6 +18,7 @@ int main(int argc, char* const argv[])
     if(strcmp(argv[1], "-t") == 0){return runCatchTests();}
     else if(strcmp(argv[1], "-r") == 0)
     {
+        std::cout << "The Terry AdjList Below:" << '\n';
         Reader scanner(argv[2],argv[3],argv[4]);
         scanner.readData();
     }
