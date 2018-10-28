@@ -5,11 +5,13 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-    test.cpp
+    test.cpp \
+    reader.cpp
 
 HEADERS += \
     node.hpp \
     catch.hpp \
     linkedlist.hpp \
     stack.hpp \
-    adjlist.hpp
+    adjlist.hpp \
+    reader.h

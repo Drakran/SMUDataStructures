@@ -2,6 +2,7 @@
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"
 #include "node.hpp"
+#include "reader.h"
 #include <iostream>
 
 
@@ -14,14 +15,11 @@ int runCatchTests()
 
 int main(int argc, char* const argv[])
 {
-    if(strcmp(argv[1], "-t") == 0)
+    if(strcmp(argv[1], "-t") == 0){return runCatchTests();}
+    else if(strcmp(argv[1], "-r") == 0)
     {
-        return runCatchTests();
-    }
-    else
-    {
-        //temp holder till more
-        return runCatchTests();
+        Reader scanner(argv[2],argv[3],argv[4]);
+        scanner.readData();
     }
 
 }
