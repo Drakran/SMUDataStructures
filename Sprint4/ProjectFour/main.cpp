@@ -21,6 +21,7 @@ int main(int argc, char* const argv[])
         std::cout << "The Terry AdjList Below:" << '\n';
         LinkedIn mainList;
         mainList.readData(argv[2]);
+        mainList.readCompare(argv[3]);
     }
     else
     {

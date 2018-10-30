@@ -4,6 +4,7 @@
 
 #include <string>
 #include "adjlist.hpp"
+#include "stack.hpp"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -21,6 +22,9 @@ private:
     std::string compare;
     std::string output;
     AdjList<std::string> list;
+    DSvector<LinkedList<std::string>> connections;
+    bool inStack();
+    void findConnections(std::string,std::string);
     //Learned Private is here because this is
     //the public facing thing, so private is not
     //important to most users

@@ -23,13 +23,20 @@ private:
     LinkedList<LinkedList<T>> data;
     LinkedList<T>& first(T);
 public:
+    AdjList();
     void addEdge(T, T);
     LinkedList<T> findFirst(T);
     T step(T);
     void reset(T);
+    void resetIter();
     void print(); //Not really needed
 };
 #endif // ADJLIST_H
+
+//Default Constructor
+template<typename T>
+AdjList<T>::AdjList()
+{}
 
 /* addEgde inserts an element in the linkedList
  * @param find the element its looking for
@@ -101,6 +108,14 @@ template<typename T>
 void AdjList<T>::reset(T val)
 {
     first(val).resetIter();
+}
+
+/*resetIter resets the mainList's iter
+ */
+template<typename T>
+void AdjList<T>::resetIter()
+{
+    data.resetIter();
 }
 
 /*print is an an example of iteratting

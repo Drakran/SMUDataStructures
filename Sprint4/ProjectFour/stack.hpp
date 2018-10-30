@@ -24,7 +24,7 @@ public:
     T pop();
     bool isEmpty();
     bool contains(T);
-    T peek(); //Not Peak
+    T& peek(); //Not Peak
     int getSize();
 private:
     LinkedList<T> data;
@@ -84,7 +84,7 @@ bool Stack<T>::contains(T val)
  * @return is the element on top
  */
 template<typename T>
-T Stack<T>::peek()
+T& Stack<T>::peek()
 {
     return data.getLast();
 }
