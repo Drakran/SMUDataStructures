@@ -288,10 +288,21 @@ TEST_CASE("Adjacency List Graph Thingy Test")
     {
         //This shoudn't matter too much just testing print
         //BTW IT WORKS!
-//        mainList.addEdge(bob,jim);
-//        mainList.addEdge(bob,terry);
-//        mainList.addEdge(jim,bob);
-//        mainList.print();
+        string a = "Alice";
+        string b = "Bob";
+        string c = "Charlie";
+        string d = "Derek";
+        //mainList.addEdge(bob,jim);
+        //mainList.addEdge(bob,terry);
+        //mainList.addEdge(terry,bob);
+        //mainList.addEdge(jim, bob);
+        //mainList.addEdge(jim,"something");
+        mainList.addEdge(a,c);
+        mainList.addEdge(c,b);
+        mainList.addEdge(c,d);
+        mainList.addEdge(d,c);
+        mainList.addEdge(b,c);
+        mainList.print();
     }
 
 }
