@@ -39,6 +39,7 @@ public:
     void removeBack();
     void removeAt(int);
     T& getIter();
+    Node<T>* getIterPtr();
     void resetIter();
     T& next();
     T& getFirst();
@@ -348,6 +349,15 @@ T& LinkedList<T>::getIter()
     return currIter->data;
 }
 
+/*getIterPtr returns the ptr where currIter is without moving it
+ * @return the ptr of currIter
+ */
+template<typename T>
+Node<T>* LinkedList<T>::getIterPtr()
+{
+    return currIter;
+}
+
 /*resetIter resets the iter pointer to the begiining
  */
 template<typename T>
@@ -365,19 +375,27 @@ T& LinkedList<T>::next()
     {
         throw std::logic_error("next but list is empty");
     }
-    if(head == tail){return currIter->data;}
-    if(currIter != tail)
+    if(currIter == nullptr)
     {
-        T& temp = currIter->data;
-        currIter = currIter->next;
-        return temp;
+        throw std::out_of_range("iter is out of bounds");
     }
-    else
-    {
-        T& temp = currIter->data;
-        resetIter();
-        return temp;
-    }
+
+    T& temp = currIter->data;
+    currIter = currIter->next;
+    return temp;
+
+//    if(currIter != tail)
+//    {
+//        T& temp = currIter->data;
+//        currIter = currIter->next;
+//        return temp;
+//    }
+//    else
+//    {
+//        T& temp = currIter->data;
+//        resetIter();
+//        return temp;
+//    }
 }
 
 /*Getfirst gets the first element

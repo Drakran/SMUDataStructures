@@ -67,14 +67,17 @@ void LinkedIn::readCompare(std::string compare)
     int totalWords;
     //Puts the numbe of wanted connections into totalwords
     file >> totalWords;
+    file.clear();
     file.ignore();
+
+
 
     while(totalWords > 0)
     {
         std::string first,second;
         std::getline(file,first, '|');
         std::getline(file,second);
-        findConnections(first,second);
+        backtrack(first,second);
         totalWords--;
     }
     file.close();
@@ -85,7 +88,7 @@ void LinkedIn::readCompare(std::string compare)
  *@param first is the starting point to find the connection
  * @param target is the end of the connection we want
  */
-void LinkedIn::findConnections(std::string first, std::string target)
+void LinkedIn::backtrack(std::string first, std::string target)
 {
     DSvector<Stack<std::string>> combos;
     Stack<std::string> mainStack;
@@ -93,6 +96,7 @@ void LinkedIn::findConnections(std::string first, std::string target)
 
     //Push Starting Person
     mainStack.push(list.findFirst(first).getIter());
+    //std::cerr << list.findFirst(first).getIter();
 
     //Go until stack is empty(exhaustive search)
     while(!mainStack.isEmpty())
@@ -100,7 +104,9 @@ void LinkedIn::findConnections(std::string first, std::string target)
         //If the top of the stack is the target, save the path
         if(mainStack.peek() == target)
         {
+            //std::cerr << mainStack.peek();
             combos.put_back(mainStack);
+            //std::cerr << combos.getSize();
             //Pop out the latest target so we go back
             mainStack.pop();//Can combine into upper line
             //Steps the list that is on top of the stack
@@ -109,14 +115,17 @@ void LinkedIn::findConnections(std::string first, std::string target)
         else
         {
             string top = mainStack.peek();
+            //std::cerr << mainStack.peek();
             //While the top of the stack's List iterator pointer is in the List(What the pointer is
             //pointing to (the string)) continue
-            while(mainStack.contains((list.findFirst(mainStack.peek())).getIter()))
+            while(list.findFirst(top).getIterPtr() != nullptr && mainStack.contains((list.findFirst(top)).getIter()))
             {
-                list.findFirst(mainStack.peek()).next();
+                string tempTest = list.findFirst(top).getIter();
+                list.findFirst(top).next();
+                //std::cerr << list.findFirst(top).getIter();
             }
             //The ptr is at head,(which means it looped)
-            if((list.findFirst(mainStack.peek())).getIter() != (list.findFirst(mainStack.peek())).getFirst())
+            if((list.findFirst(top)).getIterPtr() != nullptr)
             {
                 mainStack.push(list.findFirst(top).getIter());
             }
@@ -124,12 +133,23 @@ void LinkedIn::findConnections(std::string first, std::string target)
             {
                 list.reset(top);
                 mainStack.pop();
+                if(mainStack.getSize() !=0)
+                {
+                    list.step(mainStack.peek());
+                }
             }
         }
     }
+//    std::cerr << combos.getSize();
+//    std::cerr << combos[0].getSize();
     for(int x = 0; x < combos.getSize(); x++)
     {
-        cout << combos[x].pop();
+        //std::cout << combos[x].getSize();
+        int size = combos[x].getSize();
+        for(int y = 0; y < size; y++)
+        {
+            std::cout << combos[x].pop();
+        }
     }
 }
 

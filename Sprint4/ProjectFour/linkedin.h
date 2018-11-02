@@ -24,7 +24,7 @@ private:
     AdjList<std::string> list;
     DSvector<LinkedList<std::string>> connections;
     bool inStack();
-    void findConnections(std::string,std::string);
+    void backtrack(std::string,std::string);
     //Learned Private is here because this is
     //the public facing thing, so private is not
     //important to most users

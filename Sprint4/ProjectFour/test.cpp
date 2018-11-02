@@ -170,8 +170,8 @@ TEST_CASE("LinkedList")
         //Iter is at two
         REQUIRE(mainTest.getIter() == "two");
         REQUIRE(mainTest.next() == "two");
-        REQUIRE(mainTest.getIter() == "zero");
-        REQUIRE(mainTest.next() == "zero");
+        REQUIRE(mainTest.getIterPtr() == nullptr);
+        REQUIRE_THROWS_AS(mainTest.next(), out_of_range);
     }
 
     SECTION("=operator and copy consutrcotr")

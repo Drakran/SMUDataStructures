@@ -25,7 +25,7 @@ private:
 public:
     AdjList();
     void addEdge(T, T);
-    LinkedList<T> findFirst(T);
+    LinkedList<T>& findFirst(T);
     T step(T);
     void reset(T);
     void resetIter();
@@ -68,7 +68,7 @@ void AdjList<T>::addEdge(T find,T val)
  * @return the first linkedlist in adjlist
  */
 template<typename T>
-LinkedList<T> AdjList<T>::findFirst(T val)
+LinkedList<T>& AdjList<T>::findFirst(T val)
 {
     return first(val);
 }
