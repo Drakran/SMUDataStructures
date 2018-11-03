@@ -16,7 +16,7 @@ public:
     LinkedIn();
     void readData(std::string);
     void readCompare(std::string);
-    void outputCompare(std::string);
+    void outputData(std::string);
 private:
     std::string data;
     std::string compare;
@@ -24,6 +24,7 @@ private:
     AdjList<std::string> list;
     DSvector<LinkedList<std::string>> connections;
     bool inStack();
+    int findConnections(std::string);
     void backtrack(std::string,std::string);
     //Learned Private is here because this is
     //the public facing thing, so private is not

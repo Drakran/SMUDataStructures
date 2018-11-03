@@ -27,8 +27,11 @@ public:
     void addEdge(T, T);
     LinkedList<T>& findFirst(T);
     T step(T);
+    T stepList();
     void reset(T);
     void resetIter();
+    int getSize();
+    //void resetAllIter();
     void print(); //Not really needed
 };
 #endif // ADJLIST_H
@@ -46,19 +49,46 @@ template<typename T>
 void AdjList<T>::addEdge(T find,T val)
 {
     bool inserted = false;
+    bool insertedSecond = false;
     for(int x = 0; x < data.getSize(); x++)
     {
+        //If find first find, pushback val
         if(data[x][0] == find)
         {
             data[x].insertBack(val);
             inserted = true;
         }
+        if(data[x][0] == val)
+        {
+            data[x].insertBack(find);
+            insertedSecond = true;
+        }
     }
-    if(!inserted)
+    if(!inserted && !insertedSecond)
     {
-        LinkedList<T> temp;
+        LinkedList<T> temp;//find
+        LinkedList<T> temp2;//val
         temp.insertBack(find);
         temp.insertBack(val);
+        temp2.insertBack(val);
+        temp2.insertBack(find);
+        data.insertBack(temp);
+        data.insertBack(temp2);
+    }
+    //If not first not in List already, create the both list for find and val
+    else if(!inserted)
+    {
+        LinkedList<T> temp;//find
+        temp.insertBack(find);
+        temp.insertBack(val);
+        data.insertBack(temp);
+    }
+    //If there wasn't a 2nd list already, but one for val
+    else if(!insertedSecond)
+    {
+        LinkedList<T> temp;
+        temp.insertBack(val);
+        temp.insertBack(find);
         data.insertBack(temp);
     }
 }
@@ -101,6 +131,18 @@ T AdjList<T>::step(T val)
     return first(val).next();
 }
 
+/*step iterates through the list iterativly
+ * @param which List to step through
+ * @return the data at that point in the list
+ */
+template<typename T>
+T AdjList<T>::stepList()
+{
+    std::string name = data.getIter().getFirst();
+    data.next();
+    return name;
+}
+
 /*Resets the iter for a value
  * @param which List to reset
  */
@@ -110,12 +152,22 @@ void AdjList<T>::reset(T val)
     first(val).resetIter();
 }
 
+
 /*resetIter resets the mainList's iter
  */
 template<typename T>
 void AdjList<T>::resetIter()
 {
     data.resetIter();
+}
+
+/*getsize...returns the size of the outer linkedlist
+ *@return int of size
+ */
+template<typename T>
+int AdjList<T>::getSize()
+{
+    return data.getSize();
 }
 
 /*print is an an example of iteratting

@@ -1,3 +1,4 @@
+//I do code bc grammar is hard
 #include "linkedin.h"
 
 LinkedIn::LinkedIn()
@@ -45,7 +46,7 @@ void LinkedIn::readData(std::string data)
         //file.ignore(200,'\n');
     }
 
-    //list.print(); //To test if everything went through
+    list.print(); //To test if everything went through
     file.close();
 }
 
@@ -70,8 +71,6 @@ void LinkedIn::readCompare(std::string compare)
     file.clear();
     file.ignore();
 
-
-
     while(totalWords > 0)
     {
         std::string first,second;
@@ -81,6 +80,64 @@ void LinkedIn::readCompare(std::string compare)
         totalWords--;
     }
     file.close();
+}
+
+/*outpUt data will put everything nice and peaky like into an outputfile
+ *@param the output file name
+ */
+void LinkedIn::outputData(std::string outputFile)
+{
+    ofstream out;
+    out.open(outputFile);
+    //Vector to hold all the names + connections
+    DSvector<std::string> connections;
+    //Outputs number of connections for each unique name
+    //cout << list.getSize() << endl;
+    for(int x = 0; x < list.getSize(); x++)
+    {
+        std::string name = list.stepList();
+        int numConnections = findConnections(name);
+        std::cout << numConnections << '\n';
+    }
+
+}
+
+/*private function FindConneections will find all
+ * connections of that list to a degree of seperation
+ * of 2
+ * @param string the name to find all connections
+ * @return number of connections and secondary connections
+ */
+int LinkedIn::findConnections(std::string name)
+{
+    Stack<std::string> connections;
+    connections.push(list.findFirst(name).getFirst());
+
+    //Go through everything until end of the name's List
+    for(int x = 0; x < list.findFirst(name).getSize() - 1; x++)
+    {
+        list.step(name);
+        //This is the name of the 2nd level of connection(i.e. just
+        //the next name in the name's list)
+        string nextName = list.findFirst(name).getIter();
+        //connections.push(nextName);
+        //iterate through the 2nd's name connections
+        for(int y = 0; y < list.findFirst(nextName).getSize() ; y++)
+        {
+            //The name that is next on the nextName's list(start on first)
+            string compareName = list.step(nextName);
+            //if its not in stack add, if it is dont do anything
+            if(!connections.contains(compareName))
+            {
+                connections.push(compareName);
+            }
+        }
+        //Reset that nextName list so things don't blow up
+        list.reset(nextName);
+    }
+    list.reset(name);
+    //Returns the number of unique connections (size of stack - 1(for orgibnal name)
+    return connections.getSize() - 1;
 }
 
 /*findConnections will find the connections and store
@@ -93,7 +150,7 @@ void LinkedIn::backtrack(std::string first, std::string target)
     DSvector<Stack<std::string>> combos;
     Stack<std::string> mainStack;
     //Reset all the iters
-
+    list.resetIter(); //Make sure its reset
     //Push Starting Person
     mainStack.push(list.findFirst(first).getIter());
     //std::cerr << list.findFirst(first).getIter();
@@ -114,25 +171,32 @@ void LinkedIn::backtrack(std::string first, std::string target)
         }
         else
         {
+            //The name here will be the list we'll be going through
             string top = mainStack.peek();
             //std::cerr << mainStack.peek();
             //While the top of the stack's List iterator pointer is in the List(What the pointer is
-            //pointing to (the string)) continue
+            //pointing to (the string)) go on to the next name(as its already in the stack)
+            //Also make sure we haven't reached the end of the list (nullptr)
+            //Note it is shortciructed so getIterPtr will check first before getIter
             while(list.findFirst(top).getIterPtr() != nullptr && mainStack.contains((list.findFirst(top)).getIter()))
             {
                 string tempTest = list.findFirst(top).getIter();
                 list.findFirst(top).next();
                 //std::cerr << list.findFirst(top).getIter();
             }
-            //The ptr is at head,(which means it looped)
+            //If we haven't reached the end, push the name on the stack
             if((list.findFirst(top)).getIterPtr() != nullptr)
             {
                 mainStack.push(list.findFirst(top).getIter());
             }
+            //If we have reached the end, reset the iter and remove the name from the stack
             else
             {
                 list.reset(top);
                 mainStack.pop();
+                //If don't have an empty stack, move the name left one forward so
+                //we can continue in the loop
+                //If it was empty(i.e. first list was popped out), this would be skipped
                 if(mainStack.getSize() !=0)
                 {
                     list.step(mainStack.peek());
@@ -142,20 +206,16 @@ void LinkedIn::backtrack(std::string first, std::string target)
     }
 //    std::cerr << combos.getSize();
 //    std::cerr << combos[0].getSize();
-    for(int x = 0; x < combos.getSize(); x++)
-    {
-        //std::cout << combos[x].getSize();
-        int size = combos[x].getSize();
-        for(int y = 0; y < size; y++)
-        {
-            std::cout << combos[x].pop();
-        }
-    }
+//    for(int x = 0; x < combos.getSize(); x++)
+//    {
+//        //std::cout << combos[x].getSize();
+//        int size = combos[x].getSize();
+//        for(int y = 0; y < size; y++)
+//        {
+//            std::cout << combos[x].pop();
+//        }
+//    }
 }
 
-/*inStack checks if the value given is in the stack or not
- */
-bool LinkedIn::inStack()
-{
 
-}
+

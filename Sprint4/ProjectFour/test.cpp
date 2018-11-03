@@ -261,7 +261,7 @@ TEST_CASE("Adjacency List Graph Thingy Test")
     SECTION("find Front")
     {
         mainList.addEdge(bob,jim);
-        mainList.addEdge(jim,bob);
+        //mainList.addEdge(jim,bob);
         mainList.addEdge(jim,terry);
         LinkedList<string> one = mainList.findFirst(bob);
         REQUIRE(one[0] == "Bob");
@@ -270,18 +270,27 @@ TEST_CASE("Adjacency List Graph Thingy Test")
         REQUIRE(two[0] == "Jim");
         REQUIRE(two[1] == "Bob");
         REQUIRE(two[2] == "Terry");
+        LinkedList<string> three = mainList.findFirst(terry);
+        REQUIRE(three[0] == "Terry");
+        REQUIRE(three[1] == "Jim");
     }
 
     SECTION("step and reset")
     {
         mainList.addEdge(bob,jim);
         mainList.addEdge(bob,terry);
+        mainList.addEdge(jim,bob);
         REQUIRE(mainList.step("Bob") == "Bob");
         REQUIRE(mainList.step("Bob") == "Jim");
         REQUIRE(mainList.step("Bob") == "Terry");
         mainList.reset("Bob");
         REQUIRE(mainList.step("Bob") == "Bob");
         mainList.reset("Bob");
+        REQUIRE(mainList.stepList() == "Bob");
+        REQUIRE(mainList.stepList() == "Jim");
+        mainList.resetIter();
+        REQUIRE(mainList.stepList() == "Bob");
+        mainList.resetIter();
     }
 
     SECTION("print")
@@ -292,6 +301,7 @@ TEST_CASE("Adjacency List Graph Thingy Test")
         string b = "Bob";
         string c = "Charlie";
         string d = "Derek";
+        string e = "Eli";
         //mainList.addEdge(bob,jim);
         //mainList.addEdge(bob,terry);
         //mainList.addEdge(terry,bob);
@@ -299,10 +309,25 @@ TEST_CASE("Adjacency List Graph Thingy Test")
         //mainList.addEdge(jim,"something");
         mainList.addEdge(a,c);
         mainList.addEdge(c,b);
+        mainList.addEdge(c,e);
         mainList.addEdge(c,d);
-        mainList.addEdge(d,c);
-        mainList.addEdge(b,c);
-        mainList.print();
+        mainList.addEdge(d,b);
+        //mainList.print();
+    }
+
+    SECTION("print#2")
+    {
+        string a = "Alice";
+        string b = "Bob";
+        string c = "Charlie";
+        string d = "Derek";
+        string e = "Eli";
+        mainList.addEdge(b,a);
+        mainList.addEdge(c,b);
+        mainList.addEdge(d,a);
+        mainList.addEdge(d,b);
+        mainList.addEdge(c,d);
+        //mainList.print();
     }
 
 }
