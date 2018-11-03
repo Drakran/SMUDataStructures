@@ -76,7 +76,7 @@ void AdjList<T>::addEdge(T find,T val)
         data.insertBack(temp);
         data.insertBack(temp2);
     }
-    //If not first not in List already, create the both list for find and val
+    //If "find" is not in the list, create a connection for find
     else if(!inserted)
     {
         LinkedList<T> temp;//find
@@ -84,7 +84,7 @@ void AdjList<T>::addEdge(T find,T val)
         temp.insertBack(val);
         data.insertBack(temp);
     }
-    //If there wasn't a 2nd list already, but one for val
+    //If "val" is not in the list, create a connection for val.
     else if(!insertedSecond)
     {
         LinkedList<T> temp;

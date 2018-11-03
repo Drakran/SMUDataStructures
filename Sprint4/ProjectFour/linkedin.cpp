@@ -32,21 +32,14 @@ void LinkedIn::readData(std::string data)
         std::string first;
         std::string second;
         //Get till |
-
         std::getline(file,first, '|');
-        //cout << "First" << first << '\n';
         //Get after |
         std::getline(file,second);
-        //file.ignore();
-        //cout << "second" << second << '\n';
         list.addEdge(first,second);
-        //list.print();
-        //cout  << "-----" << '\n';
         totalWords--;
-        //file.ignore(200,'\n');
     }
 
-    list.print(); //To test if everything went through
+    //list.print(); //Can uncomment to test if everything went through
     file.close();
 }
 
@@ -95,7 +88,7 @@ void LinkedIn::outputData(std::string outputFile)
     for(int x = 0; x < list.getSize(); x++)
     {
         std::string name = list.stepList();
-        //For that unique name, go find the connections
+        //For that unique name, go find the connection number to 2nd degree
         int numConnections = findConnections(name);
         std::string numFinal = std::to_string(numConnections);
         //store number of connections and name in our connections vector
@@ -139,7 +132,6 @@ int LinkedIn::findConnections(std::string name)
         //This is the name of the 2nd level of connection(i.e. just
         //the next name in the name's list)
         string nextName = list.findFirst(name).getIter();
-        //connections.push(nextName);
         //iterate through the 2nd's name connections
         for(int y = 0; y < list.findFirst(nextName).getSize() ; y++)
         {
@@ -180,9 +172,7 @@ void LinkedIn::backtrack(std::string first, std::string target)
         //If the top of the stack is the target, save the path
         if(mainStack.peek() == target)
         {
-            //std::cerr << mainStack.peek();
             combos.put_back(mainStack);
-            //std::cerr << combos.getSize();
             //Pop out the latest target so we go back
             mainStack.pop();//Can combine into upper line
             //Steps the list that is on top of the stack
@@ -192,16 +182,14 @@ void LinkedIn::backtrack(std::string first, std::string target)
         {
             //The name here will be the list we'll be going through
             string top = mainStack.peek();
-            //std::cerr << mainStack.peek();
             //While the top of the stack's List iterator pointer is in the List(What the pointer is
-            //pointing to (the string)) go on to the next name(as its already in the stack)
+            //pointing to (the string)) go on to the next name(as the previous name is
+            //already in the stack and thus can be skipped)
             //Also make sure we haven't reached the end of the list (nullptr)
             //Note it is shortciructed so getIterPtr will check first before getIter
             while(list.findFirst(top).getIterPtr() != nullptr && mainStack.contains((list.findFirst(top)).getIter()))
             {
-                string tempTest = list.findFirst(top).getIter();
                 list.findFirst(top).next();
-                //std::cerr << list.findFirst(top).getIter();
             }
             //If we haven't reached the end, push the name on the stack
             if((list.findFirst(top)).getIterPtr() != nullptr)
@@ -227,22 +215,10 @@ void LinkedIn::backtrack(std::string first, std::string target)
     //Calls ShortestDistance to find...shortestDistance
     int small = findShortestDistance(combos);
 
-    //Put it inside the vector that holds the string for output
+    //Format number inside the vector that holds the string so it
+    //is ready for output
     std::string final = first + "|" + target + " " + std::to_string(small);
     shortDistance.put_back(final);
-//    std::cerr << combos.getSize();
-//    std::cerr << combos[0].getSize();
-//    for(int x = 0; x < combos.getSize(); x++)
-//    {
-//        //std::cout << combos[x].getSize();
-//        int size = combos[x].getSize();
-//        for(int y = 0; y < size; y++)
-//        {
-//            std::cout << combos[x].pop();
-//        }
-//        std::cout << " ";
-//    }
-//    std::cout << endl;
 }
 /*findShortestDistance compares the stacks and finds
  * which one is the shortest connection distance and

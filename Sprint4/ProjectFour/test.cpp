@@ -19,7 +19,7 @@ using namespace std;
 
 TEST_CASE("LinkedList")
 {
-    //Table of Contents
+    //Table of Contents for LL
     /* 1. Constructor
      * 2. InsertBack Insert Front, getsize, and print errors
      * 3. [] operator
