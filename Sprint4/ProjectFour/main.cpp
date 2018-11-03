@@ -20,9 +20,9 @@ int main(int argc, char* const argv[])
     {
         std::cout << "The Terry Linkedin Presents: A Thing" << '\n';
         LinkedIn mainList;
-        mainList.readData(argv[2]);
-        mainList.readCompare(argv[3]);
-        mainList.outputData(argv[4]);
+        mainList.readData(argv[3]);
+        mainList.readCompare(argv[4]);
+        mainList.outputData(argv[5]);
     }
     else
     {
