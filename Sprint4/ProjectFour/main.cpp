@@ -15,6 +15,7 @@ int runCatchTests()
 //argc haunts my issues tab and my dreams
 int main(int argc, char* const argv[])
 {
+    std::cout << argv[1] << argv[2] << argv[3] << argv[4];
     if(strcmp(argv[1], "-t") == 0){return runCatchTests();}
     else if(strcmp(argv[1], "-r") == 0)
     {
