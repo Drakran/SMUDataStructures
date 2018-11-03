@@ -12,7 +12,7 @@ int runCatchTests()
 {
     return Catch::Session().run();
 }
-//argc haunts my issues tab and my dreams
+//argc haunts my issues tab and my dreamssss
 int main(int argc, char* const argv[])
 {
     if(strcmp(argv[1], "-t") == 0){return runCatchTests();}
