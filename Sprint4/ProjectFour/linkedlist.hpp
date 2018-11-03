@@ -431,7 +431,7 @@ void LinkedList<T>::print()
     if(!isEmpty())
     {
         Node<T>* current = head;
-        std::cout << "Starting Printing"; // Remove when done
+        //std::cout << "Starting Printing"; // Remove when done
         while(current != nullptr)
         {
            std::cout << current->data;

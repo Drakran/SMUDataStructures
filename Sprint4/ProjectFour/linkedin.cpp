@@ -99,7 +99,7 @@ void LinkedIn::outputData(std::string outputFile)
     connections.sort(0, connections.getSize());
 
     //Print out connections numbers
-    out << "Number of Connections to 2nd Degree of Seperation" << '\n';
+    //out << "Number of Connections to 2nd Degree of Seperation" << '\n';
     for(int x = 0; x < connections.getSize(); x++)
     {
         out << connections[x];
@@ -107,7 +107,7 @@ void LinkedIn::outputData(std::string outputFile)
     }
 
     //Print out shortest Distance for a pair
-    out << '\n' << "Shortest Distance for each pair" << '\n';
+    //out << '\n' << "Shortest Distance for each pair" << '\n';
     for(int x = 0; x < shortDistance.getSize(); x++)
     {
         out << shortDistance[x] << '\n';
@@ -176,7 +176,11 @@ void LinkedIn::backtrack(std::string first, std::string target)
             //Pop out the latest target so we go back
             mainStack.pop();//Can combine into upper line
             //Steps the list that is on top of the stack
-            list.step(mainStack.peek());
+            //So that if there's nothing it doesn't explode
+            if(mainStack.getSize() !=0)
+            {
+                list.step(mainStack.peek());
+            }
         }
         else
         {
@@ -219,6 +223,7 @@ void LinkedIn::backtrack(std::string first, std::string target)
     //is ready for output
     std::string final = first + "|" + target + " " + std::to_string(small);
     shortDistance.put_back(final);
+
 }
 /*findShortestDistance compares the stacks and finds
  * which one is the shortest connection distance and

@@ -26,6 +26,7 @@ public:
     bool contains(T);
     T& peek(); //Not Peak
     int getSize();
+    void print();
 private:
     LinkedList<T> data;
 };
@@ -95,5 +96,11 @@ template<typename T>
 int Stack<T>::getSize()
 {
     return data.getSize();
+}
+
+template<typename T>
+void Stack<T>::print()
+{
+    data.print();
 }
 #endif // STACK_H
