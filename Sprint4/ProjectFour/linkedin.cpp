@@ -107,7 +107,7 @@ void LinkedIn::outputData(std::string outputFile)
     }
 
     //Print out shortest Distance for a pair
-    //out << '\n' << "Shortest Distance for each pair" << '\n';
+    out << '\n' << "Shortest Distance for each pair" << '\n';
     for(int x = 0; x < shortDistance.getSize(); x++)
     {
         out << shortDistance[x] << '\n';
