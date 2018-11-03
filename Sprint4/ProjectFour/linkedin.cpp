@@ -92,14 +92,33 @@ void LinkedIn::outputData(std::string outputFile)
     //Vector to hold all the names + connections
     DSvector<std::string> connections;
     //Outputs number of connections for each unique name
-    //cout << list.getSize() << endl;
     for(int x = 0; x < list.getSize(); x++)
     {
         std::string name = list.stepList();
+        //For that unique name, go find the connections
         int numConnections = findConnections(name);
-        std::cout << numConnections << '\n';
+        std::string numFinal = std::to_string(numConnections);
+        //store number of connections and name in our connections vector
+        std::string complete = name + " : " + (numFinal);
+        connections.put_back(complete);
+    }
+    //sort vector
+    connections.sort(0, connections.getSize());
+
+    //Print out connections numbers
+    out << "Number of Connections to 2nd Degree of Seperation" << '\n';
+    for(int x = 0; x < connections.getSize(); x++)
+    {
+        out << connections[x];
+        out << '\n';
     }
 
+    //Print out shortest Distance for a pair
+    out << '\n' << "Shortest Distance for each pair" << '\n';
+    for(int x = 0; x < shortDistance.getSize(); x++)
+    {
+        out << shortDistance[x] << '\n';
+    }
 }
 
 /*private function FindConneections will find all
@@ -204,6 +223,13 @@ void LinkedIn::backtrack(std::string first, std::string target)
             }
         }
     }
+
+    //Calls ShortestDistance to find...shortestDistance
+    int small = findShortestDistance(combos);
+
+    //Put it inside the vector that holds the string for output
+    std::string final = first + "|" + target + " " + std::to_string(small);
+    shortDistance.put_back(final);
 //    std::cerr << combos.getSize();
 //    std::cerr << combos[0].getSize();
 //    for(int x = 0; x < combos.getSize(); x++)
@@ -214,7 +240,28 @@ void LinkedIn::backtrack(std::string first, std::string target)
 //        {
 //            std::cout << combos[x].pop();
 //        }
+//        std::cout << " ";
 //    }
+//    std::cout << endl;
+}
+/*findShortestDistance compares the stacks and finds
+ * which one is the shortest connection distance and
+ * returns that
+ * @return int the shortest distance
+ */
+int LinkedIn::findShortestDistance(DSvector<Stack<std::string>> connections)
+{
+    int smallest = connections[0].getSize(); //Sets value to first size stack
+    for(int x = 0; x < connections.getSize(); x++)
+    {
+        if(connections[x].getSize() < smallest)
+        {
+            smallest = connections[x].getSize();
+        }
+    }
+
+    //-1 because the number of connections is the stack size -1 (nodes visited -1)
+    return smallest - 1;
 }
 
 

@@ -22,7 +22,7 @@ int main(int argc, char* const argv[])
         LinkedIn mainList;
         mainList.readData(argv[2]);
         mainList.readCompare(argv[3]);
-        //mainList.outputData(argv[4]);
+        mainList.outputData(argv[4]);
     }
     else
     {

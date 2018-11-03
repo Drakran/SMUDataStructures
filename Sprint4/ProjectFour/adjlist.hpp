@@ -64,6 +64,7 @@ void AdjList<T>::addEdge(T find,T val)
             insertedSecond = true;
         }
     }
+    //Case if both find and val are not in list, make both
     if(!inserted && !insertedSecond)
     {
         LinkedList<T> temp;//find
