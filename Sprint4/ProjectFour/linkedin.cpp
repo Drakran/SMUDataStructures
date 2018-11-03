@@ -99,7 +99,7 @@ void LinkedIn::outputData(std::string outputFile)
     connections.sort(0, connections.getSize());
 
     //Print out connections numbers
-    //out << "Number of Connections to 2nd Degree of Seperation" << '\n';
+    out << "Number of Connections to 2nd Degree of Seperation" << '\n';
     for(int x = 0; x < connections.getSize(); x++)
     {
         out << connections[x];
